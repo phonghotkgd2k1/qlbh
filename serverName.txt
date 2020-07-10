@@ -1,0 +1,6 @@
+DESKTOP-31RMB1H\SQLEXPRESS
+192.168.1.214
+localhost
+quanlybanhangDATA.mssql.somee.com
+localhost\express
+
