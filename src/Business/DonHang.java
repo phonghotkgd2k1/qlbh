@@ -24,9 +24,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
@@ -166,7 +168,7 @@ public class DonHang extends JPanel {
 		lbicon_timkiem.setOpaque(true);
 		lbicon_timkiem.setIcon(new ImageIcon("Imager\\timkiem-25.png"));
 		lbicon_timkiem.setBackground(Color.white);
-	
+
 		toolBar_north.add(lbicon_timkiem);
 
 		textField_timkiemSP = new JTextField();
@@ -262,6 +264,7 @@ public class DonHang extends JPanel {
 		JPopupMenu popupMenu_table = new TablePopup();
 
 		table = new JTable();
+		table.setPreferredScrollableViewportSize(new Dimension(450, 390));
 		table.setBorder(null);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -292,8 +295,7 @@ public class DonHang extends JPanel {
 		table.setModel(tableModel);
 		table.getColumn("DVT").setMaxWidth(70);
 		table.getColumn("Số lượng").setMaxWidth(100);
-	
-		
+
 		/*
 		 * THEM JTextfield vao table cell
 		 */
@@ -756,14 +758,16 @@ public class DonHang extends JPanel {
 
 		JScrollPane scrollPane_2 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
+		gbc_scrollPane_2.ipady = 20;
 		gbc_scrollPane_2.gridwidth = 2;
-		gbc_scrollPane_2.insets = new Insets(0, 10, 30, 10);
+		gbc_scrollPane_2.insets = new Insets(0, 10, 5, 10);
 		gbc_scrollPane_2.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_2.gridx = 1;
 		gbc_scrollPane_2.gridy = 9;
 		panel_morong.add(scrollPane_2, gbc_scrollPane_2);
 
 		JTextArea textArea_ghichu = new JTextArea();
+		textArea_ghichu.setTabSize(9);
 		textArea_ghichu.setWrapStyleWord(true);
 		textArea_ghichu.setLineWrap(true);
 		textArea_ghichu.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -782,26 +786,26 @@ public class DonHang extends JPanel {
 		panel_tong.add(panel_tinhtien, gbc_panel_tinhtien);
 		GridBagLayout gbl_panel_tinhtien = new GridBagLayout();
 		gbl_panel_tinhtien.columnWidths = new int[] { 0, 0, 0 };
-		gbl_panel_tinhtien.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel_tinhtien.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panel_tinhtien.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-		gbl_panel_tinhtien.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_tinhtien.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_tinhtien.setLayout(gbl_panel_tinhtien);
 
 		JLabel lblNewLabel = new JLabel("Thành tiền:");
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
-		gbc_lblNewLabel.insets = new Insets(30, 20, 5, 5);
+		gbc_lblNewLabel.insets = new Insets(10, 20, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel_tinhtien.add(lblNewLabel, gbc_lblNewLabel);
 
-		lbthanhtien = new JLabel("0");
+		lbthanhtien = new JLabel("0.0");
 		lbthanhtien.setFont(new Font("Arial", Font.PLAIN, 27));
 		GridBagConstraints gbc_lbthanhtien = new GridBagConstraints();
 		gbc_lbthanhtien.ipady = 10;
 		gbc_lbthanhtien.fill = GridBagConstraints.BOTH;
-		gbc_lbthanhtien.insets = new Insets(30, 20, 5, 30);
+		gbc_lbthanhtien.insets = new Insets(10, 20, 5, 30);
 		gbc_lbthanhtien.gridx = 1;
 		gbc_lbthanhtien.gridy = 0;
 		panel_tinhtien.add(lbthanhtien, gbc_lbthanhtien);
@@ -810,7 +814,7 @@ public class DonHang extends JPanel {
 		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.fill = GridBagConstraints.BOTH;
-		gbc_lblNewLabel_2.insets = new Insets(30, 20, 5, 5);
+		gbc_lblNewLabel_2.insets = new Insets(20, 20, 5, 5);
 		gbc_lblNewLabel_2.gridx = 0;
 		gbc_lblNewLabel_2.gridy = 1;
 		panel_tinhtien.add(lblNewLabel_2, gbc_lblNewLabel_2);
@@ -846,7 +850,7 @@ public class DonHang extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
+				//
 
 			}
 		});
@@ -855,20 +859,60 @@ public class DonHang extends JPanel {
 		textField_giamgia.setFont(new Font("Arial", Font.PLAIN, 27));
 		GridBagConstraints gbc_textField_giamgia = new GridBagConstraints();
 		gbc_textField_giamgia.ipady = 10;
-		gbc_textField_giamgia.insets = new Insets(30, 20, 5, 30);
+		gbc_textField_giamgia.insets = new Insets(20, 20, 5, 30);
 		gbc_textField_giamgia.fill = GridBagConstraints.BOTH;
 		gbc_textField_giamgia.gridx = 1;
 		gbc_textField_giamgia.gridy = 1;
 		panel_tinhtien.add(textField_giamgia, gbc_textField_giamgia);
 		textField_giamgia.setColumns(10);
 
+		JLabel lblNewLabel_2_1 = new JLabel("Tiền cộng thêm");
+		lblNewLabel_2_1.setFont(new Font("Arial", Font.PLAIN, 20));
+		GridBagConstraints gbc_lblNewLabel_2_1 = new GridBagConstraints();
+		gbc_lblNewLabel_2_1.fill = GridBagConstraints.BOTH;
+		gbc_lblNewLabel_2_1.insets = new Insets(15, 20, 5, 5);
+		gbc_lblNewLabel_2_1.gridx = 0;
+		gbc_lblNewLabel_2_1.gridy = 2;
+		panel_tinhtien.add(lblNewLabel_2_1, gbc_lblNewLabel_2_1);
+
+		textField_tiencongthem = new JTextField();
+		textField_tiencongthem.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == 10) {
+					kiemtra_tiencongthem();
+				}
+			}
+		});
+		textField_tiencongthem.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				kiemtra_tiencongthem();
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				textField_tiencongthem.selectAll();
+			}
+		});
+		textField_tiencongthem.setText("0.0");
+		textField_tiencongthem.setFont(new Font("Arial", Font.PLAIN, 27));
+		textField_tiencongthem.setColumns(10);
+		textField_tiencongthem.setBorder(new LineBorder(new Color(171, 173, 179), 1, true));
+		GridBagConstraints gbc_textField_tiencongthem = new GridBagConstraints();
+		gbc_textField_tiencongthem.insets = new Insets(15, 20, 5, 30);
+		gbc_textField_tiencongthem.fill = GridBagConstraints.BOTH;
+		gbc_textField_tiencongthem.gridx = 1;
+		gbc_textField_tiencongthem.gridy = 2;
+		panel_tinhtien.add(textField_tiencongthem, gbc_textField_tiencongthem);
+
 		JLabel lblNewLabel_13 = new JLabel("Khách phải trả:");
 		lblNewLabel_13.setFont(new Font("Arial", Font.BOLD, 20));
 		GridBagConstraints gbc_lblNewLabel_13 = new GridBagConstraints();
 		gbc_lblNewLabel_13.fill = GridBagConstraints.BOTH;
-		gbc_lblNewLabel_13.insets = new Insets(30, 20, 5, 5);
+		gbc_lblNewLabel_13.insets = new Insets(20, 20, 5, 5);
 		gbc_lblNewLabel_13.gridx = 0;
-		gbc_lblNewLabel_13.gridy = 2;
+		gbc_lblNewLabel_13.gridy = 3;
 		panel_tinhtien.add(lblNewLabel_13, gbc_lblNewLabel_13);
 
 		lbkhachphaitra = new JLabel("0");
@@ -876,9 +920,9 @@ public class DonHang extends JPanel {
 		GridBagConstraints gbc_lbkhachphaitra = new GridBagConstraints();
 		gbc_lbkhachphaitra.ipady = 10;
 		gbc_lbkhachphaitra.fill = GridBagConstraints.BOTH;
-		gbc_lbkhachphaitra.insets = new Insets(30, 20, 5, 30);
+		gbc_lbkhachphaitra.insets = new Insets(20, 20, 5, 30);
 		gbc_lbkhachphaitra.gridx = 1;
-		gbc_lbkhachphaitra.gridy = 2;
+		gbc_lbkhachphaitra.gridy = 3;
 		panel_tinhtien.add(lbkhachphaitra, gbc_lbkhachphaitra);
 
 		JLabel lblNewLabel_15 = new JLabel("Tiền khách đưa:");
@@ -887,7 +931,7 @@ public class DonHang extends JPanel {
 		gbc_lblNewLabel_15.fill = GridBagConstraints.BOTH;
 		gbc_lblNewLabel_15.insets = new Insets(20, 20, 5, 5);
 		gbc_lblNewLabel_15.gridx = 0;
-		gbc_lblNewLabel_15.gridy = 3;
+		gbc_lblNewLabel_15.gridy = 4;
 		panel_tinhtien.add(lblNewLabel_15, gbc_lblNewLabel_15);
 
 		textField_tienkhachdua = new JTextField("0");
@@ -918,7 +962,7 @@ public class DonHang extends JPanel {
 		gbc_textField_tienkhachdua.insets = new Insets(20, 20, 5, 30);
 		gbc_textField_tienkhachdua.fill = GridBagConstraints.BOTH;
 		gbc_textField_tienkhachdua.gridx = 1;
-		gbc_textField_tienkhachdua.gridy = 3;
+		gbc_textField_tienkhachdua.gridy = 4;
 		panel_tinhtien.add(textField_tienkhachdua, gbc_textField_tienkhachdua);
 		textField_tienkhachdua.setColumns(10);
 
@@ -928,7 +972,7 @@ public class DonHang extends JPanel {
 		gbc_lblNewLabel_16.fill = GridBagConstraints.BOTH;
 		gbc_lblNewLabel_16.insets = new Insets(20, 20, 5, 5);
 		gbc_lblNewLabel_16.gridx = 0;
-		gbc_lblNewLabel_16.gridy = 4;
+		gbc_lblNewLabel_16.gridy = 5;
 		panel_tinhtien.add(lblNewLabel_16, gbc_lblNewLabel_16);
 
 		lbtienthua = new JLabel("0");
@@ -938,19 +982,19 @@ public class DonHang extends JPanel {
 		gbc_lbtienthua.fill = GridBagConstraints.BOTH;
 		gbc_lbtienthua.insets = new Insets(20, 20, 5, 30);
 		gbc_lbtienthua.gridx = 1;
-		gbc_lbtienthua.gridy = 4;
+		gbc_lbtienthua.gridy = 5;
 		panel_tinhtien.add(lbtienthua, gbc_lbtienthua);
 
 		JButton btnTao = new JButton("Thanh toán(alt + f)");
 		btnTao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String sql_HD = "INSERT INTO HoaDonBan(MaHD ,MaNV, MaKH , NgayTao , GhiChu , GiamGia) VALUES(? ,? ,? ,? ,? ,?)";
+				String sql_HD = "INSERT INTO HoaDonBan(MaHD ,MaNV, MaKH , NgayTao , GhiChu , GiamGia ,tiencongthem) VALUES(? ,? ,? ,? ,? ,? ,?)";
 				String mahd = DonHang.this.jframe.maHoaDonTuDong();
 				try {
 					DangNhap.con.setAutoCommit(false);
 					PreparedStatement ps = DangNhap.con.prepareStatement(sql_HD);
 					ps.setString(1, mahd);
-					
+
 					String dataNV[] = textField_nhanvien.getText().split("-");
 					if (dataNV[0].isEmpty()) {
 						dataNV[0] = null;
@@ -965,9 +1009,8 @@ public class DonHang extends JPanel {
 					ps.setString(4, XulyNgayThang());
 					ps.setString(5, textArea_ghichu.getText());
 					ps.setFloat(6, Float.parseFloat(textField_giamgia.getText()));
-					
+					ps.setDouble(7, Double.parseDouble( chinhsua( textField_tiencongthem.getText()) ));
 					ps.executeUpdate();
-					// if (kq != ps.EXECUTE_FAILED) {
 
 					int rowcount = table.getRowCount();
 					PreparedStatement ps2 = DangNhap.con.prepareStatement(
@@ -985,7 +1028,7 @@ public class DonHang extends JPanel {
 					ps2.executeBatch();
 					ps2.close();
 					ps.close();
-					JOptionPane.showMessageDialog(null, "tạo thành công đơn hàng: "+mahd);
+					JOptionPane.showMessageDialog(null, "tạo thành công đơn hàng: " + mahd);
 					int i = jframe.tabbedPane.getSelectedIndex();
 					jframe.xoaTab(i);
 
@@ -1019,9 +1062,9 @@ public class DonHang extends JPanel {
 		gbc_btnTao.ipady = 15;
 		gbc_btnTao.fill = GridBagConstraints.BOTH;
 		gbc_btnTao.gridwidth = 2;
-		gbc_btnTao.insets = new Insets(40, 30, 20, 30);
+		gbc_btnTao.insets = new Insets(30, 30, 10, 30);
 		gbc_btnTao.gridx = 0;
-		gbc_btnTao.gridy = 5;
+		gbc_btnTao.gridy = 6;
 		panel_tinhtien.add(btnTao, gbc_btnTao);
 
 		/*
@@ -1152,7 +1195,7 @@ public class DonHang extends JPanel {
 		SimpleDateFormat simple = new SimpleDateFormat("hh:mm:ss");
 		Calendar cal = Calendar.getInstance();
 		String giay = simple.format(cal.getTime());
-	
+
 		String ngaythang = comboBox_nam.getSelectedItem() + "-" + comboBox_thang.getSelectedItem() + "-"
 				+ comboBox_ngay.getSelectedItem() + " " + giay;
 
@@ -1160,24 +1203,39 @@ public class DonHang extends JPanel {
 
 	}
 
+	private void kiemtra_tiencongthem() {
+		try {
+			double tiencongthem = Double.parseDouble(chinhsua(textField_tiencongthem.getText()));
+			if (tiencongthem < 0) {
+				textField_tiencongthem.setText("0");
+			}
+			tongtien();
+		} catch (Exception e) {
+			textField_tiencongthem.setText("0");
+		}
+	}
+
 	private void tienkhachdua() {
 
 		try {
-			DecimalFormat d = new DecimalFormat("###,###,###.###");
+			Locale locale = new Locale("en", "EN");
+			String pattern = "###,###,###.##";
+			DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+			dcf.applyPattern(pattern); // áp dụng mẫu pattern = "###.##" cho dcf
+			// ====================================================//
+
 			double tienkhachdua = Double.parseDouble(chinhsua(textField_tienkhachdua.getText()));
 			double khachphaitra = Double.parseDouble(chinhsua(lbkhachphaitra.getText()));
-			textField_tienkhachdua.setText(d.format(tienkhachdua));
+			textField_tienkhachdua.setText(dcf.format(tienkhachdua));
 
-			double tienthua = khachphaitra - tienkhachdua;
+			double tienthua = tienkhachdua - khachphaitra;
 
-			if (tienkhachdua > khachphaitra)
-				lbtienthua.setText(d.format(Math.abs(tienthua)));
-			else {
-				lbtienthua.setText("0");
-			}
+			lbtienthua.setText(dcf.format(tienthua));
+
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Tiền khách đưa không hợp lệ");
+			JOptionPane.showMessageDialog(null, "Tiền khách đưa không hợp lệ" + e.getMessage());
 			System.out.println("DonHang -tienkhachdua " + e.getMessage());
+			textField_tienkhachdua.setText("0");
 			textField_tienkhachdua.requestFocus();
 		}
 	}
@@ -1189,7 +1247,7 @@ public class DonHang extends JPanel {
 				textField_giamgia.setText("0");
 
 			tongtien();
-			tienkhachdua();
+
 		} catch (Exception e1) {
 			textField_giamgia.requestFocus();
 			textField_giamgia.setText("0");
@@ -1210,12 +1268,23 @@ public class DonHang extends JPanel {
 		double tong = 0.0;
 		int rowcount = table.getRowCount();
 		int sl = 0;
-		double dongia = 0;
-		double tongtiensanpham = 0;
-		DecimalFormat decimalFormat = new DecimalFormat("###,###,###.###");
+		double dongia = 0.0;
+		double tongtiensanpham = 0.0;
+		// ====================================
+		Locale locale = new Locale("en", "EN");
+		String pattern = "###,###,###.##";
+		DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+		dcf.applyPattern(pattern); // áp dụng mẫu pattern = "###.##" cho dcf
+		// =======================================
+
+		double tiencongthem = Double.parseDouble(chinhsua(textField_tiencongthem.getText()));
+
 		if (rowcount == 0) {
-			lbthanhtien.setText("0");
-			lbkhachphaitra.setText("0");
+			lbthanhtien.setText("0.0");
+			lbkhachphaitra.setText("0.0");
+
+			double tienthua = Double.parseDouble(chinhsua(textField_tienkhachdua.getText())) - tiencongthem;
+			lbtienthua.setText(dcf.format(tienthua));
 		}
 		for (int i = 0; i < rowcount; i++) {
 			try {
@@ -1226,15 +1295,17 @@ public class DonHang extends JPanel {
 
 				tong += tongtiensanpham;
 
-				table.setValueAt(decimalFormat.format(tongtiensanpham), i, 5);
+				table.setValueAt(dcf.format(tongtiensanpham), i, 5);
 
-				lbthanhtien.setText(decimalFormat.format(tong));
+				lbthanhtien.setText(dcf.format(tong));
 
 				double so = Double.parseDouble(textField_giamgia.getText().trim());
 
-				double khachphaitra = Double.parseDouble(chinhsua(lbthanhtien.getText())) * (100 - so) / 100;
+				double khachphaitra = Double.parseDouble(chinhsua(lbthanhtien.getText())) * (100 - so) / 100
+						+ tiencongthem;
 
-				lbkhachphaitra.setText(decimalFormat.format(khachphaitra));
+				textField_tiencongthem.setText(dcf.format(tiencongthem));
+				lbkhachphaitra.setText(dcf.format(khachphaitra));
 
 				tienkhachdua();
 			} catch (Exception e) {
@@ -1295,6 +1366,7 @@ public class DonHang extends JPanel {
 	private JRadioButton rdbtn_barcode;
 	private JLabel lbIcon_xoaKH;
 	private JLabel lbIcon_xoaNV;
+	private JTextField textField_tiencongthem;
 
 	class TablePopup extends JPopupMenu {
 

@@ -3,4 +3,3 @@ DESKTOP-31RMB1H\SQLEXPRESS
 localhost
 quanlybanhangDATA.mssql.somee.com
 localhost\express
-

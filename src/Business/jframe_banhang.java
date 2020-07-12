@@ -39,6 +39,7 @@ public class jframe_banhang extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					setTitle("1.3.0");
 					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -236,8 +236,7 @@ public class cardpanel_donhang extends JPanel {
 		table_DH.getColumn("Thành tiền").setCellRenderer(new DefaultTableCellRenderer() {
 			@Override
 			public void setHorizontalAlignment(int alignment) {
-
-				super.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
+				super.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 			}
 
 		});
@@ -257,7 +256,7 @@ public class cardpanel_donhang extends JPanel {
 
 	private void showDH() {
 		try {
-			String sql = "select hd.MaHD,hd.NgayTao , hd.GiamGia ,sum(cthd.ThanhTien * (100 - hd.GiamGia)/100) thanhtien from hoadonban hd left join ChiTietHoaDon cthd on hd.MaHD = cthd.MaHD group by hd.MaHD ,hd.MaNV ,hd.NgayTao ,hd.GiamGia";
+			String sql = "select hd.MaHD,hd.NgayTao , hd.GiamGia ,sum(cthd.ThanhTien * (100 - hd.GiamGia)/100)+hd.TienCongThem thanhtien from hoadonban hd left join ChiTietHoaDon cthd on hd.MaHD = cthd.MaHD group by hd.MaHD ,hd.MaNV ,hd.NgayTao ,hd.GiamGia ,hd.TienCongThem";
 			Statement st = DangNhap.con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			DefaultTableModel datarow = (DefaultTableModel) table_DH.getModel();
@@ -274,8 +273,8 @@ public class cardpanel_donhang extends JPanel {
 
 	private void ds_timkiemDH(String txt, String dieukien) {
 
-		String sql = "select hd.MaHD,hd.NgayTao , hd.GiamGia ,sum(cthd.ThanhTien * (100 - hd.GiamGia)/100) thanhtien from hoadonban hd join ChiTietHoaDon cthd on hd.MaHD = cthd.MaHD WHERE hd."
-				+ dieukien + " LIKE N'%" + txt + "%'group by hd.MaHD ,hd.MaNV ,hd.NgayTao ,hd.GiamGia";
+		String sql = "select hd.MaHD,hd.NgayTao , hd.GiamGia ,sum(cthd.ThanhTien * (100 - hd.GiamGia)/100)+ hd.TienCongThem thanhtien from hoadonban hd join ChiTietHoaDon cthd on hd.MaHD = cthd.MaHD WHERE hd."
+				+ dieukien + " LIKE N'%" + txt + "%'group by hd.MaHD ,hd.MaNV ,hd.NgayTao ,hd.GiamGia ,hd.TienCongThem";
 		DefaultTableModel datarow = (DefaultTableModel) table_DH.getModel();
 		datarow.setRowCount(0);
 		try {

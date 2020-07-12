@@ -1,15 +1,11 @@
 package Business;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.PseudoColumnUsage;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -173,7 +169,7 @@ public class executed {
 				rs = pr.executeQuery();
 				if (rs.next()) {
 					for (int k = 0; k < fields.size(); k++) {
-						pw.print(rs.getString(k + 1) + ";");
+						pw.print(rs.getString(k + 1) + " ;");
 					}
 					pw.print('\n');
 				}
@@ -213,7 +209,7 @@ public class executed {
 
 				if (rs.next()) {
 					for (int j = 0; j < fields.size(); j++) {
-						pw.print(rs.getString(j + 1) + ";");
+						pw.print(rs.getString(j + 1) + " ;");
 					}
 					pw.print('\n');
 				}

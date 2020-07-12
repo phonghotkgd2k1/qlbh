@@ -265,15 +265,32 @@ public class themsanpham extends JDialog implements KeyListener {
 		String sql = "INSERT INTO MatHang(MaHang , TenHang ,gianhap, giabanle , giabansi  ,DONVITINH ,GhiChu  ,Anh ,ngaykhoitao ) VALUES(? ,? ,? ,?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pStatement = DangNhap.con.prepareStatement(sql);
-			pStatement.setString(1, textField_masp.getText().trim());
-			pStatement.setString(2, textField_tensp.getText().trim());
-			pStatement.setFloat(3, Float.parseFloat(textField_gianhap.getText()));
-			pStatement.setFloat(4, Float.parseFloat(textField_le.getText()));
-			pStatement.setFloat(5, Float.parseFloat(textField_si.getText()));
-			pStatement.setString(6, textField_dvt.getText().trim());
-			pStatement.setString(7, textarea_ghichu.getText().trim());
-			pStatement.setString(8, chooser.diachi_anh(ta_diachifile.getText()));
-			pStatement.setString(9, ngaykhoitao());
+
+			ob_sanpham sp = new ob_sanpham();
+			sp.setMahang(textField_masp.getText().trim());
+			sp.setTenhang(textField_tensp.getText().trim());
+			sp.setGianhap(Double.parseDouble(textField_gianhap.getText()));
+			sp.setGiabanle(Double.parseDouble(textField_le.getText()));
+			sp.setGiabansi(Double.parseDouble(textField_si.getText()));
+			sp.setGhichu(textarea_ghichu.getText().trim());
+
+			sp.setAnh(chooser.diachi_anh(ta_diachifile.getText()));
+			sp.setDonvitinh(textField_dvt.getText().trim());
+			sp.setNgaykhoitao(null);
+
+			pStatement.setString(1, sp.getMahang());
+			pStatement.setString(2, sp.getTenhang());
+			pStatement.setDouble(3, sp.getGianhap());
+			pStatement.setDouble(4, sp.getGiabanle());
+			pStatement.setDouble(5, sp.getGiabansi());
+			pStatement.setString(6, sp.getDonvitinh());
+			pStatement.setString(7, sp.getGhichu());
+			if(sp.getAnh() ==null )
+				pStatement.setString(8, "");
+			else {
+				pStatement.setString(8, sp.getAnh());
+			}
+			pStatement.setString(9, sp.getNgaykhoitao());
 			pStatement.executeUpdate();
 			JOptionPane.showMessageDialog(null, "thêm thành công");
 
@@ -284,39 +301,13 @@ public class themsanpham extends JDialog implements KeyListener {
 		} catch (SQLException e2) {
 
 			JOptionPane.showMessageDialog(null, "trùng mã");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "sai " + e.getMessage());
 		}
 
 	}
 
-	public void luuSanPham(String mahang, String tenhang, String gianhap, String giabanle, String giabansi, String dvt,
-			String ghichu, String imager) {
-
-		String sql = "INSERT INTO MatHang(MaHang , TenHang ,gianhap, giabanle , giabansi ,DONVITINH ,GhiChu  ,Anh ,ngaykhoitao ) VALUES(? ,? ,? ,?, ?, ?, ?, ?, ?)";
-		try {
-			PreparedStatement pStatement = DangNhap.con.prepareStatement(sql);
-			pStatement.setString(1, mahang.trim());
-			pStatement.setString(2, tenhang.trim());
-			pStatement.setFloat(3, Float.parseFloat(gianhap));
-			pStatement.setFloat(4, Float.parseFloat(giabanle));
-			pStatement.setFloat(5, Float.parseFloat(giabansi));
-			pStatement.setString(6, dvt.trim());
-			pStatement.setString(7, ghichu.trim());
-			pStatement.setString(8, chooser.diachi_anh(imager));
-			pStatement.setString(9, ngaykhoitao());
-			pStatement.executeUpdate();
-
-		} catch (NumberFormatException e1) {
-
-			JOptionPane.showMessageDialog(null, "sai định dạng");
-
-		} catch (SQLException e2) {
-
-			JOptionPane.showMessageDialog(null, "trùng mã");
-		}
-
-	}
-
-	public void luuSanPham(ArrayList<String> ds) {
+	public void luuSanPham(ArrayList<ob_sanpham> ds) {
 
 		String sql = "INSERT INTO MatHang(MaHang , TenHang ,gianhap, giabanle , giabansi ,DONVITINH ,GhiChu  ,Anh ,ngaykhoitao ) VALUES(? ,? ,? ,?, ?, ?, ?, ?, ?)";
 
@@ -328,25 +319,26 @@ public class themsanpham extends JDialog implements KeyListener {
 			pStatement = DangNhap.con.prepareStatement(sql);
 
 			for (int i = 0; i < size; i++) {
-				String temp[] = ds.get(i).split("[;|]");
+				ob_sanpham sp = ds.get(i);
 
 				try {
-					pStatement.setString(1, temp[0].trim());
-					pStatement.setString(2, temp[1].trim());
-					pStatement.setFloat(3, Float.parseFloat(temp[2]));
-					pStatement.setFloat(4, Float.parseFloat(temp[3]));
-					pStatement.setFloat(5, Float.parseFloat(temp[4]));
-					pStatement.setString(6, temp[5].trim());
-					pStatement.setString(7, temp[6].trim());
+					pStatement.setString(1, sp.getMahang());
+					pStatement.setString(2, sp.getTenhang());
+					pStatement.setDouble(3, sp.getGianhap());
+					pStatement.setDouble(4, sp.getGiabanle());
+					pStatement.setDouble(5, sp.getGiabansi());
+					pStatement.setString(6, sp.getDonvitinh());
+					pStatement.setString(7, sp.getGhichu());
 
-					if (temp[7].trim().equals("")) {
+					if (sp.getAnh() == null) {
 						pStatement.setString(8, "");
 					} else {
 
-						new Check_er().kiemtraImager(temp[7].trim());
-						pStatement.setString(8, chooser.diachi_anh(temp[7]));
+						new Check_er().kiemtraImager(sp.getAnh());
+						pStatement.setString(8, chooser.diachi_anh(sp.getAnh()));
 					}
-					pStatement.setString(9, ngaykhoitao());
+
+					pStatement.setString(9, sp.getNgaykhoitao());
 
 					pStatement.addBatch();
 				} catch (Exception e1) {
@@ -389,7 +381,6 @@ public class themsanpham extends JDialog implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -403,7 +394,6 @@ public class themsanpham extends JDialog implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 }

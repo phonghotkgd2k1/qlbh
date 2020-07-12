@@ -17,7 +17,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -323,26 +322,41 @@ public class cardpanel_sanpham extends JPanel {
 		ChooserFile chooser = new ChooserFile(null, format, false);
 		chooser.show();
 		String url = chooser.getUrl();
-		ArrayList<String> ds = new ArrayList<String>();
+		ArrayList<ob_sanpham> ds = new ArrayList<ob_sanpham>();
 		if (url != null) {
 			try {
 
 				themsanpham them = new themsanpham();
 				FileInputStream f = new FileInputStream(url);
-				BufferedReader br = new BufferedReader(new InputStreamReader(f));
+				BufferedReader br = new BufferedReader(new InputStreamReader(f ,"UTF-8") );
 				while (true) {
 					String txt = br.readLine();
 					if (txt == null || txt.equals("")) {
 						break;
 					}
-					ds.add(txt);
+					String o[] = txt.split("[;|]");
+					
+					
+					ob_sanpham sp = new ob_sanpham();
+					sp.setMahang( o[0].trim());
+					sp.setTenhang(o[1].trim());
+					sp.setGianhap( Double.parseDouble(o[2]));
+					sp.setGiabanle(Double.parseDouble(o[3]));
+					sp.setGiabansi(Double.parseDouble(o[4]));
+					sp.setDonvitinh( o[5].trim());
+					sp.setGhichu( o[6].trim());
+					sp.setAnh(o[7].trim());
+					sp.setNgaykhoitao(o[8].trim());
+					
+					ds.add(sp);
 				}
 				them.luuSanPham(ds);
 
 				br.close();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "lỗi dữ liệu");
-				System.out.println(e.getMessage());
+			}
+			catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "lỗi dữ liệu =>"+e.getMessage());
+				
 			}
 		}
 	}

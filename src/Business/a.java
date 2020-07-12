@@ -1,74 +1,45 @@
 package Business;
 
-import java.awt.Component;
-import java.awt.EventQueue;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JCheckBox;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 public class a extends JFrame {
 
-	private JPanel contentPane;
+	static String chinhsua(String s) {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					a frame = new a();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		String temp[] = s.split(",");
+		s = "";
+		for (int i = 0; i < temp.length; i++) {
+			s += temp[i];
+		}
+		return s;
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public a() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 615);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(96, 45, 386, 488);
-		contentPane.add(scrollPane);
-
-		Object h[] = { "id", "sd" };
-		Object da[][] = { { new Boolean(false), "asd" }, { new Boolean(true), "addddd" } };
-		DefaultTableModel model = new DefaultTableModel(h, 0) {
-			public Class<?> getColumnClass(int column) {
-				switch (column) {
-					case 0:
-						return Boolean.class;
-
-					default:
-						return String.class;
-				}
-			}
-		};
-
-		model.addRow(new Object[] { true, "asd" });
-		model.addRow(new Object[] { false, "asd" });
-		model.addRow(new Object[] { true, "asd" });
-		model.addRow(new Object[] { true, "asd" });
-		JTable table = new JTable(model);
+	public static void main(String[] args)   {
 		
-		JCheckBox c = new JCheckBox("check");
-		scrollPane.setViewportView(table);
+		double vnd = 100004770.3567;
+		Locale locale = new Locale("en", "EN");
+		 String pattern = "###,###,###.###";
+		DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+	    dcf.applyPattern(pattern);  // áp dụng mẫu pattern = "###.##" cho dcf
+	    System.out.println("Số " + vnd + " sau khi định dạng = " + 
+	        dcf.format(vnd));
+			double d = Double.parseDouble(chinhsua(dcf.format(vnd)));
+			
+			double vnd1 = 1444400500000.52553d;
+			BigDecimal b = new BigDecimal(vnd1);
+			
+			BigDecimal c = b.setScale(3 , BigDecimal.ROUND_HALF_DOWN);
+			
+			System.err.println( c.toString());
+			System.out.println( c.add(new BigDecimal("100500")));
+			System.err.println( b.toString());
+			
+			System.err.println( dcf.format(c));
 	}
+
 
 }
