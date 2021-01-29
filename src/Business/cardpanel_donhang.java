@@ -162,7 +162,6 @@ public class cardpanel_donhang extends JPanel {
 				String txt = textField_thanhtimkiem.getText().trim();
 				String dieukien = (String) comboBox.getSelectedItem();
 				if (e.getKeyCode() == 10) {
-
 					ds_timkiemDH(txt, dieukien);
 				}
 			}
@@ -256,7 +255,7 @@ public class cardpanel_donhang extends JPanel {
 
 	private void showDH() {
 		try {
-			String sql = "select hd.MaHD,hd.NgayTao , hd.GiamGia ,sum(cthd.ThanhTien * (100 - hd.GiamGia)/100)+hd.TienCongThem thanhtien from hoadonban hd left join ChiTietHoaDon cthd on hd.MaHD = cthd.MaHD group by hd.MaHD ,hd.MaNV ,hd.NgayTao ,hd.GiamGia ,hd.TienCongThem";
+			String sql = "select hd.MaHD,hd.NgayTao , hd.GiamGia ,sum(cthd.ThanhTien * (100 - hd.GiamGia)/100)+hd.TienCongThem thanhtien from hoadonban hd left join ChiTietHoaDon cthd on hd.MaHD = cthd.MaHD group by hd.MaHD ,hd.MaNV ,hd.NgayTao ,hd.GiamGia ,hd.TienCongThem ORDER BY hd.NgayTao DESC";
 			Statement st = DangNhap.con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			DefaultTableModel datarow = (DefaultTableModel) table_DH.getModel();

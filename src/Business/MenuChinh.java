@@ -138,38 +138,6 @@ public class MenuChinh extends JFrame {
 		panelMenu.add(txtWelcome, gbc_txtWelcome);
 		txtWelcome.setColumns(10);
 
-//		btnTongQuan = new JToggleButton("Tổng quan");
-//		btnTongQuan.setUI(metal);
-//		btnTongQuan.setIgnoreRepaint(true);
-//		btnTongQuan.setIcon(new ImageIcon("Imager\\tongquan.png"));
-//		btnTongQuan.setHorizontalTextPosition(SwingConstants.RIGHT);
-//		btnTongQuan.setIconTextGap(35);
-//		btnTongQuan.setFocusable(false);
-//		btnTongQuan.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseEntered(MouseEvent arg0) {
-//				btnTongQuan.setBackground(color_enter);
-//
-//			}
-//
-//			@Override
-//			public void mouseExited(MouseEvent e) {
-//				btnTongQuan.setBackground(color_exit);
-//			}
-//
-//		});
-//		btnTongQuan.setPreferredSize(new Dimension(300, 60));
-//
-//		btnTongQuan.setBorder(new EmptyBorder(0, 0, 0, 0));
-//		btnTongQuan.setForeground(Color.WHITE);
-//		btnTongQuan.setBackground(color_exit);
-//		btnTongQuan.setFont(new Font("Arial", Font.PLAIN, 17));
-//		GridBagConstraints gbc_btnTongQuan = new GridBagConstraints();
-//		gbc_btnTongQuan.fill = GridBagConstraints.VERTICAL;
-//		gbc_btnTongQuan.gridx = 0;
-//		gbc_btnTongQuan.gridy = 1;
-//		panelMenu.add(btnTongQuan, gbc_btnTongQuan);
-
 		btndonhang = new JToggleButton("Đơn Hàng");
 		btndonhang.setUI(metal);
 		btndonhang.setIconTextGap(35);

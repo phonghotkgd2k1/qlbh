@@ -151,13 +151,6 @@ public class chitietDonHang extends JPanel {
 		lbmahoadon.setFont(new Font("Arial", Font.PLAIN, 27));
 		panel.add(lbmahoadon);
 
-		JPanel panel_2 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
-		flowLayout.setHgap(70);
-		flowLayout.setVgap(40);
-		flowLayout.setAlignment(FlowLayout.LEFT);
-		pn_HD.add(panel_2, BorderLayout.SOUTH);
-
 		JPanel panel_center = new JPanel();
 		panel_center.setBackground(Color.WHITE);
 		pn_HD.add(panel_center, BorderLayout.CENTER);
@@ -250,17 +243,17 @@ public class chitietDonHang extends JPanel {
 		});
 		scrollPane_1.setViewportView(table);
 
-		JPanel panel_3 = new JPanel();
-		panel_3.setPreferredSize(new Dimension(450, 10));
-		panel_3.setBackground(new Color(240, 240, 240));
-		pn_HD.add(panel_3, BorderLayout.EAST);
-		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[] { 10, 0, 0, 0 };
-		gbl_panel_3.rowHeights = new int[] { 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel_3.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		JPanel panel_east = new JPanel();
+		panel_east.setPreferredSize(new Dimension(450, 10));
+		panel_east.setBackground(new Color(240, 240, 240));
+		pn_HD.add(panel_east, BorderLayout.EAST);
+		GridBagLayout gbl_panel_east = new GridBagLayout();
+		gbl_panel_east.columnWidths = new int[] { 10, 0, 0, 0 };
+		gbl_panel_east.rowHeights = new int[] { 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel_east.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_east.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		panel_3.setLayout(gbl_panel_3);
+		panel_east.setLayout(gbl_panel_east);
 
 		JLabel lblNewLabel_6 = new JLabel("Khách Hàng");
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 20));
@@ -270,7 +263,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lblNewLabel_6.insets = new Insets(30, 20, 5, 5);
 		gbc_lblNewLabel_6.gridx = 0;
 		gbc_lblNewLabel_6.gridy = 1;
-		panel_3.add(lblNewLabel_6, gbc_lblNewLabel_6);
+		panel_east.add(lblNewLabel_6, gbc_lblNewLabel_6);
 
 		lbmakh = new JLabel();
 		lbmakh.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -281,7 +274,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lbmakh.insets = new Insets(30, 0, 5, 20);
 		gbc_lbmakh.gridx = 1;
 		gbc_lbmakh.gridy = 1;
-		panel_3.add(lbmakh, gbc_lbmakh);
+		panel_east.add(lbmakh, gbc_lbmakh);
 
 		JLabel lblNewLabel = new JLabel("Ngày tạo");
 		lblNewLabel.setOpaque(true);
@@ -292,7 +285,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lblNewLabel.insets = new Insets(10, 20, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 2;
-		panel_3.add(lblNewLabel, gbc_lblNewLabel);
+		panel_east.add(lblNewLabel, gbc_lblNewLabel);
 
 		lbngaytao = new JLabel();
 		lbngaytao.setOpaque(true);
@@ -302,7 +295,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lbngaytao.insets = new Insets(10, 0, 5, 20);
 		gbc_lbngaytao.gridx = 1;
 		gbc_lbngaytao.gridy = 2;
-		panel_3.add(lbngaytao, gbc_lbngaytao);
+		panel_east.add(lbngaytao, gbc_lbngaytao);
 
 		JLabel lblNewLabel_2 = new JLabel("Nhân viên bán: ");
 		lblNewLabel_2.setOpaque(true);
@@ -310,20 +303,20 @@ public class chitietDonHang extends JPanel {
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.ipady = 20;
 		gbc_lblNewLabel_2.fill = GridBagConstraints.BOTH;
-		gbc_lblNewLabel_2.insets = new Insets(10, 20, 5, 5);
+		gbc_lblNewLabel_2.insets = new Insets(10, 20, 0, 5);
 		gbc_lblNewLabel_2.gridx = 0;
 		gbc_lblNewLabel_2.gridy = 3;
-		panel_3.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		panel_east.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
 		lbmanv = new JLabel();
 		lbmanv.setOpaque(true);
-		lbmanv.setFont(new Font("Arial", Font.PLAIN, 22));
+		lbmanv.setFont(new Font("Arial", Font.PLAIN, 17));
 		GridBagConstraints gbc_lbmanv = new GridBagConstraints();
 		gbc_lbmanv.insets = new Insets(10, 0, 5, 20);
 		gbc_lbmanv.fill = GridBagConstraints.BOTH;
 		gbc_lbmanv.gridx = 1;
 		gbc_lbmanv.gridy = 3;
-		panel_3.add(lbmanv, gbc_lbmanv);
+		panel_east.add(lbmanv, gbc_lbmanv);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBackground(new Color(240, 240, 240));
@@ -332,10 +325,10 @@ public class chitietDonHang extends JPanel {
 		gbc_separator_1.fill = GridBagConstraints.BOTH;
 		gbc_separator_1.ipady = 10;
 		gbc_separator_1.gridwidth = 3;
-		gbc_separator_1.insets = new Insets(20, 0, 5, 0);
+		gbc_separator_1.insets = new Insets(10, 0, 5, 0);
 		gbc_separator_1.gridx = 0;
 		gbc_separator_1.gridy = 4;
-		panel_3.add(separator_1, gbc_separator_1);
+		panel_east.add(separator_1, gbc_separator_1);
 
 		JLabel lblNewLabel_4 = new JLabel("Ghi chú");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -344,7 +337,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lblNewLabel_4.insets = new Insets(0, 20, 5, 5);
 		gbc_lblNewLabel_4.gridx = 0;
 		gbc_lblNewLabel_4.gridy = 5;
-		panel_3.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		panel_east.add(lblNewLabel_4, gbc_lblNewLabel_4);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -354,7 +347,7 @@ public class chitietDonHang extends JPanel {
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 6;
-		panel_3.add(scrollPane, gbc_scrollPane);
+		panel_east.add(scrollPane, gbc_scrollPane);
 
 		textArea = new JTextArea();
 		textArea.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -372,7 +365,7 @@ public class chitietDonHang extends JPanel {
 		gbc_separator_1_1.insets = new Insets(10, 0, 5, 0);
 		gbc_separator_1_1.gridx = 0;
 		gbc_separator_1_1.gridy = 7;
-		panel_3.add(separator_1_1, gbc_separator_1_1);
+		panel_east.add(separator_1_1, gbc_separator_1_1);
 
 		JLabel lb_1 = new JLabel("Tổng tiền");
 		lb_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -381,20 +374,20 @@ public class chitietDonHang extends JPanel {
 		GridBagConstraints gbc_lb_1 = new GridBagConstraints();
 		gbc_lb_1.anchor = GridBagConstraints.WEST;
 		gbc_lb_1.fill = GridBagConstraints.VERTICAL;
-		gbc_lb_1.insets = new Insets(30, 20, 5, 5);
+		gbc_lb_1.insets = new Insets(10, 20, 5, 5);
 		gbc_lb_1.gridx = 0;
 		gbc_lb_1.gridy = 8;
-		panel_3.add(lb_1, gbc_lb_1);
+		panel_east.add(lb_1, gbc_lb_1);
 
 		lbtongtien = new JLabel("");
 		lbtongtien.setHorizontalAlignment(SwingConstants.CENTER);
 		lbtongtien.setFont(new Font("Arial", Font.PLAIN, 24));
 		lbtongtien.setAlignmentX(1.0f);
 		GridBagConstraints gbc_lbtiencongthem = new GridBagConstraints();
-		gbc_lbtiencongthem.insets = new Insets(30, 20, 5, 5);
+		gbc_lbtiencongthem.insets = new Insets(10, 20, 5, 5);
 		gbc_lbtiencongthem.gridx = 1;
 		gbc_lbtiencongthem.gridy = 8;
-		panel_3.add(lbtongtien, gbc_lbtiencongthem);
+		panel_east.add(lbtongtien, gbc_lbtiencongthem);
 
 		JLabel lblNewLabel_9_1 = new JLabel("Giảm giá(%)");
 		lblNewLabel_9_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -403,20 +396,20 @@ public class chitietDonHang extends JPanel {
 		GridBagConstraints gbc_lblNewLabel_9_1 = new GridBagConstraints();
 		gbc_lblNewLabel_9_1.fill = GridBagConstraints.VERTICAL;
 		gbc_lblNewLabel_9_1.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_9_1.insets = new Insets(30, 20, 5, 5);
+		gbc_lblNewLabel_9_1.insets = new Insets(20, 20, 5, 5);
 		gbc_lblNewLabel_9_1.gridx = 0;
 		gbc_lblNewLabel_9_1.gridy = 9;
-		panel_3.add(lblNewLabel_9_1, gbc_lblNewLabel_9_1);
+		panel_east.add(lblNewLabel_9_1, gbc_lblNewLabel_9_1);
 
 		lbgiamgia = new JLabel("");
 		lbgiamgia.setHorizontalAlignment(SwingConstants.CENTER);
 		lbgiamgia.setFont(new Font("Arial", Font.PLAIN, 24));
 		lbgiamgia.setAlignmentX(1.0f);
 		GridBagConstraints gbc_lbtongtien_2 = new GridBagConstraints();
-		gbc_lbtongtien_2.insets = new Insets(30, 20, 5, 5);
+		gbc_lbtongtien_2.insets = new Insets(20, 20, 5, 5);
 		gbc_lbtongtien_2.gridx = 1;
 		gbc_lbtongtien_2.gridy = 9;
-		panel_3.add(lbgiamgia, gbc_lbtongtien_2);
+		panel_east.add(lbgiamgia, gbc_lbtongtien_2);
 
 		JLabel lblNewLabel_9_1_1 = new JLabel("Tiền cộng thêm");
 		lblNewLabel_9_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -428,7 +421,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lblNewLabel_9_1_1.insets = new Insets(20, 20, 5, 5);
 		gbc_lblNewLabel_9_1_1.gridx = 0;
 		gbc_lblNewLabel_9_1_1.gridy = 10;
-		panel_3.add(lblNewLabel_9_1_1, gbc_lblNewLabel_9_1_1);
+		panel_east.add(lblNewLabel_9_1_1, gbc_lblNewLabel_9_1_1);
 
 		lbtiencongthem = new JLabel("");
 		lbtiencongthem.setHorizontalAlignment(SwingConstants.CENTER);
@@ -439,7 +432,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lbtiencongthem1.insets = new Insets(20, 20, 5, 5);
 		gbc_lbtiencongthem1.gridx = 1;
 		gbc_lbtiencongthem1.gridy = 10;
-		panel_3.add(lbtiencongthem, gbc_lbtiencongthem1);
+		panel_east.add(lbtiencongthem, gbc_lbtiencongthem1);
 
 		JLabel lblNewLabel_10_1 = new JLabel("Khách phải trả");
 		lblNewLabel_10_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -451,7 +444,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lblNewLabel_10_1.insets = new Insets(30, 20, 5, 5);
 		gbc_lblNewLabel_10_1.gridx = 0;
 		gbc_lblNewLabel_10_1.gridy = 11;
-		panel_3.add(lblNewLabel_10_1, gbc_lblNewLabel_10_1);
+		panel_east.add(lblNewLabel_10_1, gbc_lblNewLabel_10_1);
 
 		lbkhachphaitra = new JLabel("");
 		lbkhachphaitra.setHorizontalAlignment(SwingConstants.CENTER);
@@ -461,7 +454,7 @@ public class chitietDonHang extends JPanel {
 		gbc_lbkhachphaitra_1.insets = new Insets(30, 20, 5, 5);
 		gbc_lbkhachphaitra_1.gridx = 1;
 		gbc_lbkhachphaitra_1.gridy = 11;
-		panel_3.add(lbkhachphaitra, gbc_lbkhachphaitra_1);
+		panel_east.add(lbkhachphaitra, gbc_lbkhachphaitra_1);
 
 		/*
 		 * 

@@ -1,18 +1,17 @@
 package Business;
 
+import java.awt.Font;
+
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
-
-import java.awt.Font;
-import javafx.embed.swing.JFXPanel;
-
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
 
 public class tysuatloinhuan extends JFXPanel {
 
