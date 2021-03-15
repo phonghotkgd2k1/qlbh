@@ -7,12 +7,13 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.security.interfaces.RSAKey;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +44,6 @@ public class themsanpham extends JDialog implements KeyListener {
 	private JTextField textField_tensp;
 	private JTextField textField_masp;
 	private JTextField textField_le;
-	private JTextField textField_si;
 	private JTextField textField_gianhap;
 	private JTextArea textarea_ghichu;
 	private JTextArea ta_diachifile;
@@ -117,18 +117,18 @@ public class themsanpham extends JDialog implements KeyListener {
 		lblNewLabel_1_2.setBounds(619, 186, 109, 33);
 		contentPane.add(lblNewLabel_1_2);
 
-		JLabel lblNewLabel_1_4 = new JLabel("Gía bán sỉ");
-		lblNewLabel_1_4.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_1_4.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblNewLabel_1_4.setBounds(429, 186, 173, 33);
-		contentPane.add(lblNewLabel_1_4);
-
 		textField_tensp = new JTextField();
 		textField_tensp.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textField_tensp.setFont(new Font("Arial", Font.PLAIN, 17));
 		textField_tensp.setBounds(480, 140, 330, 33);
 		contentPane.add(textField_tensp);
 		textField_tensp.setColumns(10);
+		textField_tensp.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				textField_tensp.selectAll();
+			}
+		});
 
 		textField_masp = new JTextField();
 		textField_masp.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -136,6 +136,12 @@ public class themsanpham extends JDialog implements KeyListener {
 		textField_masp.setColumns(10);
 		textField_masp.setBounds(100, 140, 291, 33);
 		contentPane.add(textField_masp);
+		textField_masp.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				textField_masp.selectAll();
+			}
+		});
 
 		textField_le = new JTextField("0");
 		textField_le.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -143,13 +149,12 @@ public class themsanpham extends JDialog implements KeyListener {
 		textField_le.setColumns(10);
 		textField_le.setBounds(652, 222, 158, 33);
 		contentPane.add(textField_le);
-
-		textField_si = new JTextField("0");
-		textField_si.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		textField_si.setFont(new Font("Arial", Font.PLAIN, 17));
-		textField_si.setColumns(10);
-		textField_si.setBounds(480, 222, 151, 33);
-		contentPane.add(textField_si);
+		textField_le.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				textField_le.selectAll();
+			}
+		});
 
 		JLabel lbhinhanh = new JLabel("");
 		lbhinhanh.setBounds(426, 287, 360, 360);
@@ -168,6 +173,12 @@ public class themsanpham extends JDialog implements KeyListener {
 		textField_gianhap.setColumns(10);
 		textField_gianhap.setBounds(100, 222, 136, 33);
 		contentPane.add(textField_gianhap);
+		textField_gianhap.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				textField_gianhap.selectAll();
+			}
+		});
 
 		JButton btnLuu = new JButton("Lưu");
 		btnLuu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -177,7 +188,6 @@ public class themsanpham extends JDialog implements KeyListener {
 		btnLuu.setBounds(32, 614, 109, 33);
 		contentPane.add(btnLuu);
 		btnLuu.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				luuSanPham();
@@ -211,6 +221,12 @@ public class themsanpham extends JDialog implements KeyListener {
 		textarea_ghichu.setFont(new Font("Arial", Font.PLAIN, 14));
 		textarea_ghichu.setBounds(100, 388, 291, 78);
 		contentPane.add(textarea_ghichu);
+		textarea_ghichu.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				textarea_ghichu.selectAll();
+			}
+		});
 
 		JLabel lblNewLabel_1_2_1 = new JLabel("Ghi Chú");
 		lblNewLabel_1_2_1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -238,10 +254,16 @@ public class themsanpham extends JDialog implements KeyListener {
 		textField_dvt.setColumns(10);
 		textField_dvt.setBounds(100, 308, 129, 33);
 		contentPane.add(textField_dvt);
+		textField_dvt.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				textField_dvt.selectAll();
+			}
+		});
+
 		btnChonHinhAnh.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-
 				chooser.show();
 				String url = chooser.getUrl();
 				Image icon = new ImageIcon(url).getImage().getScaledInstance(lbhinhanh.getWidth(),
@@ -262,7 +284,7 @@ public class themsanpham extends JDialog implements KeyListener {
 
 	private void luuSanPham() {
 
-		String sql = "INSERT INTO MatHang(MaHang , TenHang ,gianhap, giabanle , giabansi  ,DONVITINH ,GhiChu  ,Anh ,ngaykhoitao ) VALUES(? ,? ,? ,?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO MatHang(MaHang , TenHang ,gianhap, giabanle , DONVITINH ,GhiChu  ,Anh ,ngaykhoitao ) VALUES(? ,? ,? , ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pStatement = DangNhap.con.prepareStatement(sql);
 
@@ -271,7 +293,6 @@ public class themsanpham extends JDialog implements KeyListener {
 			sp.setTenhang(textField_tensp.getText().trim());
 			sp.setGianhap(Double.parseDouble(textField_gianhap.getText()));
 			sp.setGiabanle(Double.parseDouble(textField_le.getText()));
-			sp.setGiabansi(Double.parseDouble(textField_si.getText()));
 			sp.setGhichu(textarea_ghichu.getText().trim());
 
 			sp.setAnh(chooser.diachi_anh(ta_diachifile.getText()));
@@ -282,15 +303,14 @@ public class themsanpham extends JDialog implements KeyListener {
 			pStatement.setString(2, sp.getTenhang());
 			pStatement.setDouble(3, sp.getGianhap());
 			pStatement.setDouble(4, sp.getGiabanle());
-			pStatement.setDouble(5, sp.getGiabansi());
-			pStatement.setString(6, sp.getDonvitinh());
-			pStatement.setString(7, sp.getGhichu());
-			if(sp.getAnh() ==null )
-				pStatement.setString(8, "");
+			pStatement.setString(5, sp.getDonvitinh());
+			pStatement.setString(6, sp.getGhichu());
+			if (sp.getAnh() == null)
+				pStatement.setString(7, "");
 			else {
-				pStatement.setString(8, sp.getAnh());
+				pStatement.setString(7, sp.getAnh());
 			}
-			pStatement.setString(9, sp.getNgaykhoitao());
+			pStatement.setString(8, sp.getNgaykhoitao());
 			pStatement.executeUpdate();
 			JOptionPane.showMessageDialog(null, "thêm thành công");
 
@@ -309,7 +329,7 @@ public class themsanpham extends JDialog implements KeyListener {
 
 	public void luuSanPham(ArrayList<ob_sanpham> ds) {
 
-		String sql = "INSERT INTO MatHang(MaHang , TenHang ,gianhap, giabanle , giabansi ,DONVITINH ,GhiChu  ,Anh ,ngaykhoitao ) VALUES(? ,? ,? ,?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO MatHang(MaHang , TenHang ,gianhap, giabanle ,DONVITINH ,GhiChu  ,Anh ,ngaykhoitao ) VALUES(? ,? ,? , ?, ?, ?, ?, ?)";
 
 		int size = ds.size();
 		DefaultListModel<String> data = new DefaultListModel<String>();
@@ -326,21 +346,19 @@ public class themsanpham extends JDialog implements KeyListener {
 					pStatement.setString(2, sp.getTenhang());
 					pStatement.setDouble(3, sp.getGianhap());
 					pStatement.setDouble(4, sp.getGiabanle());
-					pStatement.setDouble(5, sp.getGiabansi());
-					pStatement.setString(6, sp.getDonvitinh());
-					pStatement.setString(7, sp.getGhichu());
+					pStatement.setString(5, sp.getDonvitinh());
+					pStatement.setString(6, sp.getGhichu());
 
 					if (sp.getAnh() == null) {
-						pStatement.setString(8, "");
+						pStatement.setString(7, "");
 					} else {
-
 						new Check_er().kiemtraImager(sp.getAnh());
-						pStatement.setString(8, chooser.diachi_anh(sp.getAnh()));
+						pStatement.setString(7, chooser.diachi_anh(sp.getAnh()));
 					}
-
-					pStatement.setString(9, sp.getNgaykhoitao());
-
+					pStatement.setString(8, sp.getNgaykhoitao());
 					pStatement.addBatch();
+				} catch (IOException e2) {
+					data.addElement("dòng: " + ds.get(i) + " ==>> lỗi: ảnh không tồn tại trong thư mục.");
 				} catch (Exception e1) {
 					data.addElement("dòng: " + ds.get(i) + " ==>> lỗi: " + e1.getMessage());
 				}
@@ -363,15 +381,13 @@ public class themsanpham extends JDialog implements KeyListener {
 			}
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "lỗi cập nhật");
-
+			JOptionPane.showMessageDialog(null, "Lỗi dữ liệu: " + e.getMessage());
 			try {
 				DangNhap.con.rollback();
 			} catch (SQLException e1) {
 				System.out.println("themsanpham.rollback: " + e.getMessage());
 			}
 		}
-
 		try {
 			DangNhap.con.setAutoCommit(true);
 		} catch (SQLException e) {
@@ -389,11 +405,9 @@ public class themsanpham extends JDialog implements KeyListener {
 		if (e.getKeyCode() == 10) {
 			luuSanPham();
 		}
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
 	}
 }

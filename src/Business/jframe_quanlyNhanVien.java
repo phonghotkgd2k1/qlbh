@@ -91,7 +91,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				performed = e.getActionCommand();
 				refresh();
-
 			}
 		});
 		mntm_nv.setPreferredSize(new Dimension(250, 35));
@@ -131,7 +130,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-
 			}
 		});
 
@@ -176,7 +174,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 	public jframe_quanlyNhanVien() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1369, 756);
-
 		setJMenuBar(menubar());
 
 		panel = new JPanel(new BorderLayout());
@@ -185,11 +182,9 @@ public class jframe_quanlyNhanVien extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-
 				// chỉ cho mở 1 trang frame thêm nhân viên 1 lần
 				MenuChinh.check = false;
 				MenuChinh.mntmQLNhanVien.setEnabled(MenuChinh.check);
-
 				performed = "Nhân viên";
 				refresh();
 			}
@@ -199,7 +194,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 				MenuChinh.check = true;
 			}
 		});
-
 		north();
 		Center();
 		South();
@@ -255,7 +249,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 						String f = field(getColumnName(h));
 						sql = "select " + f + " from quyenhan where tenquyenhan like N'%" + txt + "%'";
 					} else if (performed.equalsIgnoreCase("chi tiết Quyền hạn")) {
-
 						h = new String[] { "chitietquyenhan" };
 						String f = field(getColumnName(h));
 						sql = "select " + f + " from  chitietquyenhan  where maquyenhan like N'%" + txt + "%'";
@@ -384,32 +377,25 @@ public class jframe_quanlyNhanVien extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String field[] = null;
 				String sql = null;
-
 				try {
-
 					DangNhap.con.setAutoCommit(false);
 
 					if (performed.equalsIgnoreCase("Nhân viên")) {
 
 						field = getColumnName(new String[] { "nhanvien" });
 						sql = "update nhanvien set tennhanvien = ?, diachi = ?, email = ?, ngaylamviec =? ,luongcoban =?, phucap =? , matkhau =? ,dienthoai=? where manhanvien = ?";
-
 						LuuThayDoi(field, sql, "MaNhanVien");
 
 						field = getColumnName(new String[] { "phanquyen" });
 						sql = "update phanquyen set maquyenhan =?, hoatdong=? where manhanvien =?";
 
 						LuuThayDoi(field, sql, "MaNhanVien");
-
 					} else if (performed.equalsIgnoreCase("Quyền hạn")) {
-
 						field = getColumnName(new String[] { "quyenhan" });
-
 						sql = "update quyenhan set tenquyenhan = ? where maquyenhan = ?";
 						LuuThayDoi(field, sql, "MaQuyenHan");
 
 					} else if (performed.equalsIgnoreCase("Chi tiết quyền hạn")) {
-
 						field = getColumnName(new String[] { "chitietquyenhan" });
 						sql = "update chitietquyenhan set  maquyenhan = ? , chucnang =? , chophep = ? where machitietQH = ? ";
 						LuuThayDoi(field, sql, "MaChiTietQH");
@@ -440,7 +426,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 	private void napDanhSach(String sql) {
 
 		try {
-
 			ResultSet rs = DangNhap.con.createStatement().executeQuery(sql);
 			DefaultTableModel datarow = (DefaultTableModel) table.getModel();
 			int columnCount = datarow.getColumnCount();
@@ -448,7 +433,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 			while (rs.next()) {
 				vector = new Vector<String>();
 				for (int k = 0; k < columnCount; k++) {
-
 					vector.addElement(rs.getString(datarow.getColumnName(k)));
 				}
 				datarow.addRow(vector);
@@ -468,12 +452,10 @@ public class jframe_quanlyNhanVien extends JFrame {
 		int columnCount = datarow.getColumnCount();
 
 		try {
-
 			ResultSet rs = DangNhap.con.createStatement().executeQuery(sql);
 			while (rs.next()) {
 				vector = new Vector<String>();
 				for (int k = 0; k < columnCount; k++) {
-
 					vector.add(rs.getString(datarow.getColumnName(k)));
 				}
 				datarow.addRow(vector);
@@ -490,7 +472,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 
 		PreparedStatement pr = DangNhap.con.prepareStatement(sql);
 		for (int i = 0; i < size; i++) {
-
 			pr.setString(1, dsID.get(i));
 			pr.addBatch();
 		}
@@ -575,49 +556,49 @@ public class jframe_quanlyNhanVien extends JFrame {
 				String name = tableT.getColumnName(k);
 
 				if (name.equalsIgnoreCase("LuongCoBan") || name.equalsIgnoreCase("PhuCap")) {
-
-					pr.setDouble(k, Double.parseDouble((String) tableT.getValueAt(i, k)));
+					if (tableT.getValueAt(i, k) == null || tableT.getValueAt(i, k).toString().trim().length() == 0)
+						pr.setDouble(k, 0);
+					else
+						pr.setDouble(k, Double.parseDouble((String) tableT.getValueAt(i, k)));
 				} else if (name.equalsIgnoreCase("HoatDong")) {
 
 					pr.setInt(k, Integer.parseInt((String) tableT.getValueAt(i, k)));
 				} else if (name.equalsIgnoreCase("ngaylamviec")) {
 
-					pr.setString(k, ngaylamviec((String) tableT.getValueAt(i, k)));
+					if (tableT.getValueAt(i, k) == null || tableT.getValueAt(i, k).toString().trim().length() == 0)
+						pr.setString(k, null);
+					else
+						pr.setString(k, ngaylamviec(tableT.getValueAt(i, k).toString()));
 				} else {
-
 					pr.setString(k, (String) tableT.getValueAt(i, k));
 				}
 			}
-
 			pr.setString(k, (String) tableT.getValueAt(i, tableT.getColumn(key).getModelIndex()));
 			pr.executeUpdate();
 		}
-
 	}
 
 	private void refresh() {
-
 		String h[] = null;
 		String sql = "";
 		if (performed.equals("Nhân viên")) {
+
 			h = new String[] { "nhanvien", "phanquyen" };
 			table.setModel(CustomDefault(h));
 			String f = field(getColumnName(h));
 			sql = "select P." + f + " from nhanvien N  join phanquyen P on N.manhanvien = P.manhanvien ";
-
 		} else if (performed.equals("Quyền hạn")) {
+
 			h = new String[] { "quyenhan" };
 			table.setModel(CustomDefault(h));
 			String f = field(getColumnName(h));
-
 			sql = "select " + f + " from  QUYENHAN  ";
-
 		} else if (performed.equals("Chi Tiết Quyền hạn")) {
+
 			h = new String[] { "chitietquyenhan" };
 			table.setModel(CustomDefault(h));
 			String f = field(getColumnName(h));
 			sql = "select " + f + " from chitietquyenhan ";
-
 		}
 		napDanhSach(sql);
 		setTable();
@@ -662,7 +643,6 @@ public class jframe_quanlyNhanVien extends JFrame {
 					if (column != 3)
 						return false;
 				}
-
 				return true;
 			}
 		};
@@ -682,5 +662,4 @@ public class jframe_quanlyNhanVien extends JFrame {
 	}
 
 	private String performed;
-
 }

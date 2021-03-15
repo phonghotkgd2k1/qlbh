@@ -14,7 +14,7 @@ public class NgayThang {
 	public NgayThang() {
 		simple = new SimpleDateFormat("d M yyyy");
 		cal = Calendar.getInstance();
-		
+
 		ngay = new DefaultComboBoxModel<Integer>();
 		thang = new DefaultComboBoxModel<Integer>();
 		nam = new DefaultComboBoxModel<Integer>();
@@ -39,8 +39,7 @@ public class NgayThang {
 			nam.addElement(i);
 		}
 	}
-	
-	
+
 	public Calendar getCal() {
 		return cal;
 	}
@@ -51,10 +50,10 @@ public class NgayThang {
 
 	public String getDate() {
 		Date date = cal.getTime();
-		
+
 		return simple.format(date);
 	}
-	
+
 	public DefaultComboBoxModel<Integer> getNgay() {
 		return ngay;
 	}
@@ -78,4 +77,4 @@ public class NgayThang {
 	public void setNam(DefaultComboBoxModel<Integer> nam) {
 		this.nam = nam;
 	}
-}	
+}

@@ -1,22 +1,19 @@
 package Business;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.text.DecimalFormat;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class TopNhanVienKinhDoanh extends JPanel {
 	private JComboBox<String> comboBox_topnhanvien;
@@ -89,13 +86,14 @@ public class TopNhanVienKinhDoanh extends JPanel {
 				return false;
 			}
 		};
-		String sql = "select top 10 MaNV ,N.TenNhanVien ,SUM( CTHD.ThanhTien * (100- hd.GiamGia) /100) tong from HoaDonBan hd JOIN ChiTietHoaDon CTHD ON CTHD.MaHD = HD.MaHD JOIN NhanVien N ON N.MaNhanVien = hd.MaNV where CONVERT(DATE ,HD.NGAYTAO ,126) BETWEEN " +ngay1+" and "+ngay2+" group by MaNV , N.TenNhanVien order by tong desc";
+		String sql = "select top 10 MaNV ,N.TenNhanVien ,SUM( CTHD.ThanhTien * (100- hd.GiamGia) /100) tong from HoaDonBan hd JOIN ChiTietHoaDon CTHD ON CTHD.MaHD = HD.MaHD JOIN NhanVien N ON N.MaNhanVien = hd.MaNV where CONVERT(DATE ,HD.NGAYTAO ,126) BETWEEN "
+				+ ngay1 + " and " + ngay2 + " group by MaNV , N.TenNhanVien order by tong desc";
 
 		try {
 			ResultSet rs = DangNhap.con.createStatement().executeQuery(sql);
 			while (rs.next()) {
-
-				String data[] = { rs.getString(1), rs.getString(2), rs.getDouble(3) + "" };
+				String data[] = { rs.getString(1), rs.getString(2),
+						new DecimalFormat("###,###,###.#").format(rs.getLong(3)) };
 				datarow.addRow(data);
 			}
 			table.setModel(datarow);
@@ -113,13 +111,13 @@ public class TopNhanVienKinhDoanh extends JPanel {
 			}
 		};
 		datarow.setRowCount(0);
-		String sql = "select top 10 MaNV ,N.TenNhanVien ,SUM( CTHD.ThanhTien * (100- hd.GiamGia) /100 - (M.GIANHAP * CTHD.SOLUONG )) tong from HoaDonBan hd JOIN ChiTietHoaDon CTHD ON CTHD.MaHD = HD.MaHD JOIN NhanVien N ON N.MaNhanVien = hd.MaNV JOIN MATHANG M ON M.MAHANG = CTHD.MAHANG where CONVERT(DATE ,HD.NGAYTAO ,126) BETWEEN " +ngay1+" and "+ngay2+" group by MaNV, N.TenNhanVien  order by tong desc";
-
+		String sql = "select top 10 MaNV ,N.TenNhanVien ,SUM( CTHD.ThanhTien * (100- hd.GiamGia) /100 - (M.GIANHAP * CTHD.SOLUONG )) tong from HoaDonBan hd JOIN ChiTietHoaDon CTHD ON CTHD.MaHD = HD.MaHD JOIN NhanVien N ON N.MaNhanVien = hd.MaNV JOIN MATHANG M ON M.MAHANG = CTHD.MAHANG where CONVERT(DATE ,HD.NGAYTAO ,126) BETWEEN "
+				+ ngay1 + " and " + ngay2 + " group by MaNV, N.TenNhanVien  order by tong desc";
 		try {
 			ResultSet rs = DangNhap.con.createStatement().executeQuery(sql);
 
 			while (rs.next()) {
-				String data[] = { rs.getString(1), rs.getString(2), rs.getDouble(3) + "" };
+				String data[] = { rs.getString(1), rs.getString(2), new DecimalFormat("###,###,###.#").format(rs.getLong(3)) };
 				datarow.addRow(data);
 			}
 			table.setModel(datarow);

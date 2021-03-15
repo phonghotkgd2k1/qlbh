@@ -21,10 +21,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
@@ -39,7 +37,7 @@ public class jframe_banhang extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					setTitle("1.3.0");
+					setTitle("1.4.0");
 					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +55,6 @@ public class jframe_banhang extends JFrame implements ActionListener {
 				if (rs.getInt(1) == 0)
 					return true;
 			}
-
 		} catch (Exception e) {
 
 		}
@@ -177,9 +174,7 @@ public class jframe_banhang extends JFrame implements ActionListener {
 				mnthemKH.setEnabled(action_them);
 				mnthemNKH.setEnabled(action_them);
 				mnthemSP.setEnabled(action_them);
-
 			}
-
 		});
 	}
 
@@ -197,30 +192,23 @@ public class jframe_banhang extends JFrame implements ActionListener {
 
 	public void xoaTab(int i) {
 		if (i > -1) {
-
 			tabbedPane.remove(i);
 			index--;
 			if (i == index - 1 && i > 0) {
 				tabbedPane.setSelectedIndex(index - 2);
-			} else {
+			} else
 				tabbedPane.setSelectedIndex(i);
-			}
-
 			if (index == 1) {
 				indexString = 1;
 				themtab();
-
 			}
-
 		}
 	}
 
 	public void themtab() {
 		try {
 			int i = index - 1;
-
 			if (i == tabbedPane.getSelectedIndex()) {
-
 				tabbedPane.add(new DonHang(this), "Đơn " + indexString, i);
 				tabbedPane.setTabComponentAt(i, new ThemTab(this));
 				tabbedPane.removeChangeListener(changelistener);
@@ -228,9 +216,7 @@ public class jframe_banhang extends JFrame implements ActionListener {
 				tabbedPane.addChangeListener(changelistener);
 				index++;
 				indexString++;
-
 			}
-
 		} catch (ParseException | SQLException e) {
 			System.out.println("jframe_banhang - themtab: " + e.getMessage());
 		}
@@ -254,6 +240,5 @@ public class jframe_banhang extends JFrame implements ActionListener {
 		} else if (action == mnthoat) {
 			dispose();
 		}
-
 	}
 }

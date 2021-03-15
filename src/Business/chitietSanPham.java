@@ -15,14 +15,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -38,7 +36,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class chitietSanPham extends JPanel {
 	private JTextField textField_tensp;
 	private JTextField textField_masp;
-	private JTextField textField_buon;
 	private JTextField textField_DVT;
 	private JTextField textField_le;
 	private JLabel lbhinhanh;
@@ -64,7 +61,6 @@ public class chitietSanPham extends JPanel {
 				textField_url.setText(System.getProperty("user.dir") + "\\" + rs.getString("anh"));
 				textField_le.setText(rs.getDouble("giabanle") + "");
 				textField_DVT.setText(rs.getString("donvitinh"));
-				textField_buon.setText(rs.getDouble("giabansi") + "");
 				textField_nhap.setText(rs.getDouble("gianhap") + "");
 				textField_tensp.setText(rs.getString("tenhang"));
 				textField_masp.setText(rs.getString("mahang"));
@@ -123,7 +119,7 @@ public class chitietSanPham extends JPanel {
 		gbc_lbgianhap.fill = GridBagConstraints.VERTICAL;
 		gbc_lbgianhap.insets = new Insets(20, 50, 5, 5);
 		gbc_lbgianhap.gridx = 1;
-		gbc_lbgianhap.gridy = 6;
+		gbc_lbgianhap.gridy = 4;
 		panel_center.add(lbgianhap, gbc_lbgianhap);
 
 		textField_nhap = new JTextField("0");
@@ -136,7 +132,7 @@ public class chitietSanPham extends JPanel {
 		gbc_textField_nhap.insets = new Insets(0, 60, 5, 10);
 		gbc_textField_nhap.fill = GridBagConstraints.BOTH;
 		gbc_textField_nhap.gridx = 1;
-		gbc_textField_nhap.gridy = 7;
+		gbc_textField_nhap.gridy = 5;
 		panel_center.add(textField_nhap, gbc_textField_nhap);
 
 		textField_url = new JTextField();
@@ -197,27 +193,6 @@ public class chitietSanPham extends JPanel {
 		gbc_lbhinhanh.gridx = 2;
 		gbc_lbhinhanh.gridy = 1;
 		panel_center.add(lbhinhanh, gbc_lbhinhanh);
-
-		textField_buon = new JTextField("0");
-		textField_buon.setPreferredSize(new Dimension(6, 33));
-		textField_buon.setMinimumSize(new Dimension(6, 33));
-		textField_buon.setFont(new Font("Arial", Font.PLAIN, 17));
-		textField_buon.setColumns(15);
-		GridBagConstraints gbc_textField_buon = new GridBagConstraints();
-		gbc_textField_buon.insets = new Insets(0, 60, 5, 5);
-		gbc_textField_buon.fill = GridBagConstraints.BOTH;
-		gbc_textField_buon.gridx = 1;
-		gbc_textField_buon.gridy = 5;
-		panel_center.add(textField_buon, gbc_textField_buon);
-
-		JLabel lbgiabanbuon = new JLabel("Gía bán sỉ");
-		lbgiabanbuon.setFont(new Font("Arial", Font.PLAIN, 17));
-		GridBagConstraints gbc_lbgiabanbuon = new GridBagConstraints();
-		gbc_lbgiabanbuon.insets = new Insets(20, 50, 5, 5);
-		gbc_lbgiabanbuon.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_lbgiabanbuon.gridx = 1;
-		gbc_lbgiabanbuon.gridy = 4;
-		panel_center.add(lbgiabanbuon, gbc_lbgiabanbuon);
 
 		JLabel lbmasp = new JLabel("Mã sản phẩm");
 		lbmasp.setFont(new Font("Arial", Font.PLAIN, 17));
@@ -347,7 +322,6 @@ public class chitietSanPham extends JPanel {
 					int xacnhan = JOptionPane.showConfirmDialog(null, "Xác nhận xóa sản phẩm ? ", null,
 							JOptionPane.YES_NO_OPTION);
 					if (xacnhan == JOptionPane.YES_OPTION) {
-
 						pr.executeBatch();
 						refresh();
 					}
@@ -370,7 +344,6 @@ public class chitietSanPham extends JPanel {
 
 	public chitietSanPham(String txt) throws SQLException {
 		try {
-
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			System.out.println("Look and Feel not set");
@@ -398,17 +371,16 @@ public class chitietSanPham extends JPanel {
 	}
 
 	private void luuSanPham() {
-		String sql = "UPDATE MATHANG SET TenHang = ? ,GIABANLE = ? ,GIABANSI = ? , DonViTinh = ? ,GhiChu = ? ,ANH = ? ,GIANHAP =? FROM MATHANG WHERE MAHANG = ? ";
+		String sql = "UPDATE MATHANG SET TenHang = ? ,GIABANLE = ? , DonViTinh = ? ,GhiChu = ? ,ANH = ? ,GIANHAP =? FROM MATHANG WHERE MAHANG = ? ";
 		try {
 			PreparedStatement ps = DangNhap.con.prepareStatement(sql);
 			ps.setString(1, textField_tensp.getText().trim());
 			ps.setDouble(2, Double.parseDouble(textField_le.getText()));
-			ps.setDouble(3, Double.parseDouble(textField_buon.getText()));
-			ps.setString(4, textField_DVT.getText().trim());
-			ps.setString(5, textArea.getText().trim());
-			ps.setString(6, chooser.diachi_anh(textField_url.getText()));
-			ps.setDouble(7, Double.parseDouble(textField_nhap.getText()));
-			ps.setString(8, textField_masp.getText());
+			ps.setString(3, textField_DVT.getText().trim());
+			ps.setString(4, textArea.getText().trim());
+			ps.setString(5, chooser.diachi_anh(textField_url.getText()));
+			ps.setDouble(6, Double.parseDouble(textField_nhap.getText()));
+			ps.setString(7, textField_masp.getText());
 			ps.executeUpdate();
 			JOptionPane.showMessageDialog(null, "update thanh cong");
 		} catch (Exception e) {

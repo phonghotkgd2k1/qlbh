@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class ob_sanpham {
 	private String mahang, tenhang, donvitinh, ghichu, anh, ngaykhoitao;
-	private double gianhap, giabanle, giabansi;
+	private double gianhap, giabanle;
 	private SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
 
 	public ob_sanpham() {
@@ -15,7 +15,7 @@ public class ob_sanpham {
 	}
 
 	public ob_sanpham(String mahang, String tenhang, String donvitinh, String ghichu, String anh, String ngaykhoitao,
-			double gianhap, double giabanle, double giabansi) throws Exception {
+			double gianhap, double giabanle) throws Exception {
 		super();
 		this.mahang = mahang;
 		this.tenhang = tenhang;
@@ -25,7 +25,6 @@ public class ob_sanpham {
 		setNgaykhoitao(ngaykhoitao);
 		setGianhap(gianhap);
 		setGiabanle(giabanle);
-		setGiabansi(giabansi);
 	}
 
 	public double getGianhap() {
@@ -47,16 +46,6 @@ public class ob_sanpham {
 		if (giabanle < 0)
 			throw new Exception("sai gia ban le");
 		this.giabanle = giabanle;
-	}
-
-	public double getGiabansi() {
-		return giabansi;
-	}
-
-	public void setGiabansi(double giabansi) throws Exception {
-		if (giabansi < 0)
-			throw new Exception("sai gia ban si");
-		this.giabansi = giabansi;
 	}
 
 	public String getMahang() {
@@ -127,8 +116,8 @@ public class ob_sanpham {
 
 	@Override
 	public String toString() {
-		return mahang + ";" + tenhang + ";" + gianhap + ";" + giabanle + ";" + giabansi + ";" + donvitinh + ";" + ghichu
-				+ ";" + ngaykhoitao;
+		return mahang + ";" + tenhang + ";" + gianhap + ";" + giabanle + ";" + donvitinh + ";" + ghichu + ";"
+				+ ngaykhoitao;
 	}
 
 }

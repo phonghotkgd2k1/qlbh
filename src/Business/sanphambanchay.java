@@ -1,24 +1,19 @@
 package Business;
 
-import javax.swing.DefaultCellEditor;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.sql.ResultSet;
+import java.text.DecimalFormat;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.image.ColorModel;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
+import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class sanphambanchay extends JPanel {
 
@@ -57,14 +52,12 @@ public class sanphambanchay extends JPanel {
 		table.getColumn("Số lượng").setCellRenderer(new DefaultTableCellRenderer() {
 			@Override
 			public void setHorizontalAlignment(int alignment) {
-
 				super.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
 			}
 		});
 		table.getColumn("Doanh thu").setCellRenderer(new DefaultTableCellRenderer() {
 			@Override
 			public void setHorizontalAlignment(int alignment) {
-
 				super.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
 			}
 		});
@@ -93,7 +86,7 @@ public class sanphambanchay extends JPanel {
 			DefaultTableModel datarow = (DefaultTableModel) table.getModel();
 			for (int i = 1; rs.next(); i++) {
 
-				String data[] = { i + "", rs.getString(1), rs.getInt(2) + "", rs.getDouble(3) + "" };
+				String data[] = { i + "", rs.getString(1), rs.getInt(2) + "", new DecimalFormat("###,###,###.#").format(rs.getLong(3)) };
 				datarow.addRow(data);
 			}
 		} catch (Exception e) {

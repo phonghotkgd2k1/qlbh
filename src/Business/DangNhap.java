@@ -50,12 +50,14 @@ public class DangNhap extends JFrame implements KeyListener {
 	private JButton btnlogin;
 	static ResultSet rs_taikhoan;
 
+	static boolean action_quanlynhanvien;
 	static boolean action_them;
 	static boolean action_sua;
 	static boolean action_xoa;
 	static boolean action_nhapfile;
 	static boolean action_xuatfile;
 	static boolean action_banhang;
+
 	private JPasswordField pwd;
 	private JTextField textField_servername;
 	private JTextField textField_login;
@@ -95,10 +97,8 @@ public class DangNhap extends JFrame implements KeyListener {
 	}
 
 	public DangNhap() {
-
 		// khoi tao gia tri
 		addWindowListener(new WindowAdapter() {
-
 			@Override
 			public void windowOpened(WindowEvent e) {
 				action_them = true;
@@ -107,14 +107,13 @@ public class DangNhap extends JFrame implements KeyListener {
 				action_nhapfile = true;
 				action_xuatfile = true;
 				action_banhang = true;
+				action_quanlynhanvien = true;
 				comboBox_authentication.setSelectedItem("Windows Authentication");
-
 				textField_servername.setText(server.getDefault().getElementAt(server.getDefault().getSize() - 1));
 				textField_databaseName.setText(dataName.getDefault().getElementAt(dataName.getDefault().getSize() - 1));
 			}
 		});
 		GUI();
-
 	}
 
 	private void GUI() {
@@ -164,7 +163,6 @@ public class DangNhap extends JFrame implements KeyListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				authentication();
-
 			}
 		});
 		comboBox_authentication.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -192,6 +190,7 @@ public class DangNhap extends JFrame implements KeyListener {
 				ketnoidatabase();
 				if (con != null) {
 					showlayout("dangnhap");
+					txtUsername.requestFocus();
 				}
 			}
 		});
@@ -368,7 +367,6 @@ public class DangNhap extends JFrame implements KeyListener {
 		btnlogin.setUI(new MetalButtonUI() {
 			@Override
 			protected Color getSelectColor() {
-
 				return new Color(0, 60, 108);
 			}
 		});
@@ -442,7 +440,6 @@ public class DangNhap extends JFrame implements KeyListener {
 		} else if (index == 1) {
 			textField_login.setEditable(true);
 			pwd.setEditable(true);
-
 		}
 	}
 
@@ -457,30 +454,23 @@ public class DangNhap extends JFrame implements KeyListener {
 		} else if (comboBox_authentication.getSelectedIndex() == 1) {
 			c = new connectSQL(serverName, databaseName, login, pass);
 		}
-
 		con = c.connect();
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
 		if (e.getKeyCode() == e.VK_ENTER) {
-
 			if (pn_ketnoi.isVisible()) {
-
 				ketnoidatabase();
 				if (con != null) {
-
 					showlayout("dangnhap");
+					txtUsername.requestFocus();
 				}
-
 			} else if (pn_dangnhap.isVisible()) {
-
 				kiemtradangnhap();
 			}
 		}
@@ -495,9 +485,9 @@ public class DangNhap extends JFrame implements KeyListener {
 	}
 
 	private void kiemtradangnhap() {
-		String sql = "select * from  nhanvien n left join phanquyen p on n.manhanvien = p.manhanvien where n.manhanvien =? and n.MatKhau =? and p.hoatdong= 1";
+		String sql = "use " + textField_databaseName.getText().trim()
+				+ " select * from  nhanvien n left join phanquyen p on n.manhanvien = p.manhanvien where n.manhanvien =? and n.MatKhau =? and p.hoatdong= 1";
 		try {
-
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, txtUsername.getText());
 			ps.setString(2, passwordField.getText());
@@ -506,7 +496,6 @@ public class DangNhap extends JFrame implements KeyListener {
 			if (!rs_taikhoan.next()) {
 				thongbaoLB.setText("Sai tên đăng nhập hoặc mật khẩu");
 			} else {
-
 				hoatdong(kiemtra_quyenhan());
 				dispose(); // dong jframe
 				MenuChinh menuchinh = new MenuChinh();
@@ -564,6 +553,9 @@ public class DangNhap extends JFrame implements KeyListener {
 		}
 		if (qh.toLowerCase().contains("bán hàng") == false) {
 			action_banhang = false;
+		}
+		if (qh.toLowerCase().contains("quản lý nhân viên") == false) {
+			action_quanlynhanvien = false;
 		}
 		System.out.println("nhan vien có quyền hạn: " + qh);
 	}

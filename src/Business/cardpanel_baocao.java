@@ -10,11 +10,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
@@ -43,14 +47,27 @@ public class cardpanel_baocao extends JPanel {
 	private sanphambanchay pnsanphambanchay;
 	static int d1, d2, m1, m2, y1, y2;
 
-	private void action() {
+	private boolean action() {
 		d1 = (int) comboBox_ngaybd.getSelectedItem();
 		m1 = (int) comboBox_thangbd.getSelectedItem();
 		y1 = (int) comboBox_nambd.getSelectedItem();
 		d2 = (int) comboBox_ngaykt.getSelectedItem();
 		m2 = (int) comboBox_thangkt.getSelectedItem();
 		y2 = (int) comboBox_namkt.getSelectedItem();
-
+		SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy");
+		try {
+			Date start = simple.parse(d1 + "-" + m1 + "-" + y1);
+			Date end = simple.parse(d2 + "-" + m2 + "-" + y2);
+			long time = end.getTime() - start.getTime();
+			if ((time / 1000 / 24 / 60 / 60) > 365 * 2) {
+				JOptionPane.showMessageDialog(null, "Chỉ thống kê trong thời gian 2 năm.");
+				return false;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	private JPanel panel_north() {
@@ -147,12 +164,13 @@ public class cardpanel_baocao extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				action();
-				capnhat_thongkedoanhthu();
-				capnhat_bieudocot();
-				capnhat_topnhanvien();
-				capnhat_bieudoduong();
-				capnhat_sanphambanchay();
+				if (action()) {
+					capnhat_thongkedoanhthu();
+					capnhat_bieudocot();
+					capnhat_topnhanvien();
+					capnhat_bieudoduong();
+					capnhat_sanphambanchay();
+				}
 			}
 		});
 		btnxacnhan.setBackground(Color.WHITE);
@@ -260,7 +278,7 @@ public class cardpanel_baocao extends JPanel {
 			System.out.println("Look and Feel not set");
 		}
 		setLayout(new BorderLayout());
-	
+
 		JPanel pn = new JPanel(new BorderLayout(10, 10));
 
 		JScrollPane js = new JScrollPane(pn);

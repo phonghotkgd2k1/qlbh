@@ -87,11 +87,9 @@ public class DonHang extends JPanel {
 		try {
 			textField_nhanvien.setText(
 					DangNhap.rs_taikhoan.getString("manhanvien") + "-" + DangNhap.rs_taikhoan.getString("tennhanvien"));
-
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-
 	}
 
 	private void capnhatNgayThang() {
@@ -114,12 +112,10 @@ public class DonHang extends JPanel {
 
 	public DonHang(jframe_banhang jframe) throws ParseException, SQLException {
 		try {
-
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			System.out.println("Look and Feel not set");
 		}
-
 		this.jframe = jframe;
 		/*
 		 * 
@@ -187,7 +183,6 @@ public class DonHang extends JPanel {
 					} else if (rdbtn_barcode.isSelected() == false) {
 						list_SP.setModel(ds_timkiemSP(txt, dieukien));
 						popupMenu_SP.show(textField_timkiemSP, 0, textField_timkiemSP.getHeight());
-
 					}
 				} else {
 					popupMenu_SP.setVisible(false);
@@ -549,29 +544,6 @@ public class DonHang extends JPanel {
 		gbc_lblNewLabel_11.gridy = 0;
 		panel_morong.add(lblNewLabel_11, gbc_lblNewLabel_11);
 
-		JLabel lblNewLabel_12 = new JLabel("Mã đơn hàng");
-		lblNewLabel_12.setFont(new Font("Arial", Font.PLAIN, 16));
-		GridBagConstraints gbc_lblNewLabel_12 = new GridBagConstraints();
-		gbc_lblNewLabel_12.insets = new Insets(0, 10, 5, 0);
-		gbc_lblNewLabel_12.ipady = 10;
-		gbc_lblNewLabel_12.fill = GridBagConstraints.BOTH;
-		gbc_lblNewLabel_12.gridx = 1;
-		gbc_lblNewLabel_12.gridy = 1;
-		panel_morong.add(lblNewLabel_12, gbc_lblNewLabel_12);
-
-		textField_mahd = new JTextField();
-		textField_mahd.setEditable(false);
-		textField_mahd.setFont(new Font("Arial", Font.PLAIN, 18));
-		GridBagConstraints gbc_textField_mahd = new GridBagConstraints();
-		gbc_textField_mahd.gridwidth = 2;
-		gbc_textField_mahd.ipady = 10;
-		gbc_textField_mahd.insets = new Insets(0, 10, 5, 10);
-		gbc_textField_mahd.fill = GridBagConstraints.BOTH;
-		gbc_textField_mahd.gridx = 1;
-		gbc_textField_mahd.gridy = 2;
-		panel_morong.add(textField_mahd, gbc_textField_mahd);
-		textField_mahd.setColumns(10);
-
 		JLabel lblNewLabel_12_1 = new JLabel("Ngày tạo");
 		lblNewLabel_12_1.setFont(new Font("Arial", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblNewLabel_12_1 = new GridBagConstraints();
@@ -580,7 +552,7 @@ public class DonHang extends JPanel {
 		gbc_lblNewLabel_12_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_12_1.insets = new Insets(10, 10, 5, 20);
 		gbc_lblNewLabel_12_1.gridx = 1;
-		gbc_lblNewLabel_12_1.gridy = 3;
+		gbc_lblNewLabel_12_1.gridy = 1;
 		panel_morong.add(lblNewLabel_12_1, gbc_lblNewLabel_12_1);
 
 		JToolBar toolBar = new JToolBar();
@@ -593,7 +565,7 @@ public class DonHang extends JPanel {
 		gbc_toolBar.fill = GridBagConstraints.BOTH;
 		gbc_toolBar.insets = new Insets(0, 10, 5, 10);
 		gbc_toolBar.gridx = 1;
-		gbc_toolBar.gridy = 4;
+		gbc_toolBar.gridy = 2;
 		panel_morong.add(toolBar, gbc_toolBar);
 
 		comboBox_ngay = new JComboBox();
@@ -622,7 +594,7 @@ public class DonHang extends JPanel {
 		gbc_lblNewLabel_12_1_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_12_1_1.insets = new Insets(10, 10, 5, 20);
 		gbc_lblNewLabel_12_1_1.gridx = 1;
-		gbc_lblNewLabel_12_1_1.gridy = 5;
+		gbc_lblNewLabel_12_1_1.gridy = 3;
 		panel_morong.add(lblNewLabel_12_1_1, gbc_lblNewLabel_12_1_1);
 
 		textField_nhanvien = new JTextField();
@@ -638,7 +610,6 @@ public class DonHang extends JPanel {
 				} else {
 					popupMenu_NV.setVisible(false);
 				}
-
 			}
 		});
 		textField_nhanvien.setBorder(null);
@@ -715,46 +686,46 @@ public class DonHang extends JPanel {
 		gbc_toolBar_banggia.gridx = 1;
 		gbc_toolBar_banggia.gridy = 8;
 		panel_morong.add(toolBar_banggia, gbc_toolBar_banggia);
-
-		buttongroup = new ButtonGroup();
-
-		rdbtngiale = new JRadioButton("Giá bán lẻ");
-		rdbtngiale.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					giabanle();
-				} catch (SQLException e1) {
-
-					System.out.println("DONHANG - rdbtngiale: " + e1.getMessage());
-				}
-			}
-		});
-		rdbtngiale.setBackground(Color.WHITE);
-		rdbtngiale.setSelected(true);
-		rdbtngiale.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		rdbtngiale.setFont(new Font("Arial", Font.BOLD, 16));
-		toolBar_banggia.add(rdbtngiale);
-		buttongroup.add(rdbtngiale);
-
-		rdbtngiasi = new JRadioButton("Gía bán sỉ");
-		rdbtngiasi.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					giabansi();
-				} catch (SQLException e1) {
-					System.out.println("DONHANG - rdbtngiasi: " + e1.getMessage());
-				}
-			}
-		});
-		rdbtngiasi.setBackground(Color.WHITE);
-		rdbtngiasi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		rdbtngiasi.setFont(new Font("Arial", Font.BOLD, 16));
-		toolBar_banggia.add(rdbtngiasi);
-		buttongroup.add(rdbtngiasi);
+//
+//		buttongroup = new ButtonGroup();
+//
+//		rdbtngiale = new JRadioButton("Giá bán lẻ");
+//		rdbtngiale.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					giabanle();
+//				} catch (SQLException e1) {
+//
+//					System.out.println("DONHANG - rdbtngiale: " + e1.getMessage());
+//				}
+//			}
+//		});
+//		rdbtngiale.setBackground(Color.WHITE);
+//		rdbtngiale.setSelected(true);
+//		rdbtngiale.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//		rdbtngiale.setFont(new Font("Arial", Font.BOLD, 16));
+//		toolBar_banggia.add(rdbtngiale);
+//		buttongroup.add(rdbtngiale);
+//
+//		rdbtngiasi = new JRadioButton("Gía bán sỉ");
+//		rdbtngiasi.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					giabansi();
+//				} catch (SQLException e1) {
+//					System.out.println("DONHANG - rdbtngiasi: " + e1.getMessage());
+//				}
+//			}
+//		});
+//		rdbtngiasi.setBackground(Color.WHITE);
+//		rdbtngiasi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//		rdbtngiasi.setFont(new Font("Arial", Font.BOLD, 16));
+//		toolBar_banggia.add(rdbtngiasi);
+//		buttongroup.add(rdbtngiasi);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
@@ -1009,7 +980,7 @@ public class DonHang extends JPanel {
 					ps.setString(4, XulyNgayThang());
 					ps.setString(5, textArea_ghichu.getText());
 					ps.setFloat(6, Float.parseFloat(textField_giamgia.getText()));
-					ps.setDouble(7, Double.parseDouble( chinhsua( textField_tiencongthem.getText()) ));
+					ps.setDouble(7, Double.parseDouble(chinhsua(textField_tiencongthem.getText())));
 					ps.executeUpdate();
 
 					int rowcount = table.getRowCount();
@@ -1124,7 +1095,7 @@ public class DonHang extends JPanel {
 					datarow.setValueAt((sl + 1) + "", giatriTrung, 3);
 				} else {
 					String[] temp = { rs.getString("mahang"), rs.getString("tenhang"), rs.getString("DONVITINH"), "1",
-							rs.getDouble(kiemtraGiaBan()) + "", rs.getDouble(kiemtraGiaBan()) + "" };
+							rs.getDouble("GiaBanLe") + "", rs.getDouble("GiaBanLe") + "" };
 					datarow.addRow(temp);
 				}
 				tongtien();
@@ -1135,15 +1106,15 @@ public class DonHang extends JPanel {
 		}
 	}
 
-	private String kiemtraGiaBan() {
-		String giaban = null;
-		if (rdbtngiale.isSelected()) {
-			giaban = "GiaBanLe";
-		} else if (rdbtngiasi.isSelected()) {
-			giaban = "GiaBanSi";
-		}
-		return giaban;
-	}
+//	private String kiemtraGiaBan() {
+//		String giaban = null;
+//		if (rdbtngiale.isSelected()) {
+//			giaban = "GiaBanLe";
+//		} else if (rdbtngiasi.isSelected()) {
+//			giaban = "GiaBanSi";
+//		}
+//		return giaban;
+//	}
 
 	private int kiemtraTrungSP(String id) {
 		int size = table.getRowCount();
@@ -1361,8 +1332,8 @@ public class DonHang extends JPanel {
 	private JList<String> list_NV;
 	private JLabel lbthanhtien;
 	private ButtonGroup buttongroup;
-	private JRadioButton rdbtngiale;
-	private JRadioButton rdbtngiasi;
+//	private JRadioButton rdbtngiale;
+//	private JRadioButton rdbtngiasi;
 	private JRadioButton rdbtn_barcode;
 	private JLabel lbIcon_xoaKH;
 	private JLabel lbIcon_xoaNV;

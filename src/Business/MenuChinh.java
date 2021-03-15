@@ -62,7 +62,7 @@ public class MenuChinh extends JFrame {
 	static JMenuItem mntmQLNhanVien;
 	private JPanel panel_cardlayout_tongquan;
 	private JSeparator separator;
-	static boolean check ;
+	static boolean check;
 
 	public void run() {
 		EventQueue.invokeLater(new Runnable() {
@@ -77,22 +77,19 @@ public class MenuChinh extends JFrame {
 	}
 
 	public MenuChinh() throws SQLException {
-	
+
 		addWindowFocusListener(new WindowFocusListener() {
-			
+
 			@Override
 			public void windowLostFocus(WindowEvent arg0) {
-
-				
 			}
-			
+
 			@Override
 			public void windowGainedFocus(WindowEvent arg0) {
-				
-				if( check == true) {
+
+				if (check == true) {
 					mntmQLNhanVien.setEnabled(check);
 				}
-				
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -218,7 +215,6 @@ public class MenuChinh extends JFrame {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				btnkhachhang.setBackground(color_enter);
-
 			}
 
 			@Override
@@ -255,6 +251,7 @@ public class MenuChinh extends JFrame {
 				btnbanhang.setBackground(color_enter);
 
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnbanhang.setBackground(color_exit);
@@ -385,9 +382,8 @@ public class MenuChinh extends JFrame {
 		popupMenu.add(mntmhoso);
 
 		mntmQLNhanVien = new JMenuItem("Quản lý nhân viên");
-		mntmQLNhanVien.setVisible(DangNhap.action_them);
+		mntmQLNhanVien.setEnabled(DangNhap.action_quanlynhanvien);
 		mntmQLNhanVien.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new jframe_quanlyNhanVien().run();

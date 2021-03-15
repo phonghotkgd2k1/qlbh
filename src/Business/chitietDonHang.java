@@ -69,7 +69,6 @@ public class chitietDonHang extends JPanel {
 				textArea.setText(rs.getString("ghichu"));
 			}
 		} catch (Exception e) {
-
 			System.out.println("chitietKhachHang - getdata_hd: " + e.getMessage());
 		}
 	}
@@ -90,10 +89,8 @@ public class chitietDonHang extends JPanel {
 				datarow.addRow(temp);
 			}
 		} catch (Exception e) {
-
 			System.out.println("chitietKhachHang - getdata_chitiethd: " + e.getMessage());
 		}
-
 	}
 
 	private void thanhtoanHD(Object txt) {
@@ -103,27 +100,22 @@ public class chitietDonHang extends JPanel {
 			ResultSet rs = st.executeQuery(sql_tontien);
 			if (rs.next()) {
 				lbtongtien.setText(DinhDangTienTe(rs.getDouble("tongtien")));
-
 			}
-
 			String sql_giamgia = "select giamgia from hoadonban where mahd = N'" + txt + "'";
 			rs = st.executeQuery(sql_giamgia);
 			if (rs.next()) {
 				lbgiamgia.setText(rs.getFloat(1) + "");
-
 			}
 			String sql_tiencongthem = "select tiencongthem from hoadonban where mahd = N'" + txt + "'";
 			rs = st.executeQuery(sql_tiencongthem);
 			if (rs.next()) {
 				lbtiencongthem.setText(rs.getDouble(1) + "");
 			}
-
 			double khachphaitra1 = (Double.parseDouble(DonHang.chinhsua(lbtongtien.getText()))
 					* (100 - Float.parseFloat(lbgiamgia.getText())) / 100)
 					+ Double.parseDouble(lbtiencongthem.getText());
 
 			lbkhachphaitra.setText(DinhDangTienTe(khachphaitra1));
-
 		} catch (Exception e) {
 			System.out.println("chitietDonHang - thanhtoanHD: " + e.getMessage());
 		}
@@ -173,15 +165,12 @@ public class chitietDonHang extends JPanel {
 				int column = table.columnAtPoint(e.getPoint());
 				if (column == 1) {
 					table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
 				} else {
 					table.setCursor(null);
 				}
 			}
-
 			@Override
 			public void mouseDragged(MouseEvent e) {
-
 			}
 		});
 		table.addMouseListener(new MouseAdapter() {

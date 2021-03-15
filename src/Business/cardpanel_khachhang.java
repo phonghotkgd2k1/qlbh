@@ -56,7 +56,6 @@ public class cardpanel_khachhang extends JPanel {
 
 	public cardpanel_khachhang() {
 		GUI();
-
 		showKH();
 		showNKH();
 	}
@@ -97,7 +96,6 @@ public class cardpanel_khachhang extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				if (tabbedPane.getSelectedIndex() == 0) {
 					themkhachhang them = new themkhachhang();
 					them.run();
@@ -122,10 +120,23 @@ public class cardpanel_khachhang extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int[] soluong = table_KH.getSelectedRows();
-				int xacnhan = JOptionPane.showConfirmDialog(null, "xác nhận xóa " + soluong.length + "khách hàng");
-				if (xacnhan == JOptionPane.YES_OPTION)
-					xoaKH(soluong);
+				if (tabbedPane.getSelectedIndex() == 0) {
+					int[] soluong = table_KH.getSelectedRows();
+					if (soluong.length > 0) {
+						int xacnhan = JOptionPane.showConfirmDialog(null,
+								"xác nhận xóa " + soluong.length + "khách hàng");
+						if (xacnhan == JOptionPane.YES_OPTION)
+							xoaKH(soluong);
+					}
+				} else if (tabbedPane.getSelectedIndex() == 1) {
+					int[] soluong = table_NKH.getSelectedRows();
+					if (soluong.length > 0) {
+						int xacnhan = JOptionPane.showConfirmDialog(null,
+								"xác nhận xóa " + soluong.length + " Nhóm khách hàng");
+						if (xacnhan == JOptionPane.YES_OPTION)
+							xoaNKH(soluong);
+					}
+				}
 			}
 		});
 		btnxoa_kh.setBorder(null);
@@ -137,70 +148,70 @@ public class cardpanel_khachhang extends JPanel {
 		btnxoa_kh.setFont(new Font("Arial", Font.PLAIN, 22));
 		panel_bar.add(btnxoa_kh);
 
-		JButton btnnhapfile = new JButton("Nhập File");
-		btnnhapfile.setEnabled(DangNhap.action_nhapfile);
-		btnnhapfile.setBorder(null);
-		btnnhapfile.setBorderPainted(false);
-		btnnhapfile.setContentAreaFilled(false);
-		btnnhapfile.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FileNameExtensionFilter format = new FileNameExtensionFilter("file(.*)", "txt");
-				ChooserFile chooser = new ChooserFile(format, false);
-				chooser.show();
-
-				String url = chooser.getUrl();
-				if (url != null) {
-					ArrayList<String> ds = new ArrayList<String>();
-					String data = null;
-					try {
-						FileInputStream f = new FileInputStream(url);
-						BufferedReader b = new BufferedReader(new InputStreamReader(f,"UTF-8"));
-
-						while (true) {
-							data = b.readLine();
-							if (data == null || data.equals("")) {
-								break;
-							}
-							ds.add(data);
-						}
-						themkhachhang them = new themkhachhang();
-						them.themkhachhang(ds);
-						b.close();
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "lỗi đọc file: " + e2.getMessage());
-					}
-
-				}
-			}
-		});
-		btnnhapfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnnhapfile.setIconTextGap(5);
-		btnnhapfile.setIcon(new ImageIcon("Imager\\nhapfile-30.png"));
-		btnnhapfile.setFont(new Font("Arial", Font.PLAIN, 22));
-		panel_bar.add(btnnhapfile);
-
-		JButton btnxuatfile = new JButton("Xuất File");
-		btnxuatfile.setEnabled(DangNhap.action_xuatfile);
-		btnxuatfile.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String tableName = "khachhang";
-				String id = "makh";
-				xuatfile xuat = new xuatfile(table_KH, tableName, id);
-				xuat.run();
-			}
-		});
-		btnxuatfile.setBorder(null);
-		btnxuatfile.setBorderPainted(false);
-		btnxuatfile.setContentAreaFilled(false);
-		btnxuatfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnxuatfile.setIconTextGap(5);
-		btnxuatfile.setIcon(new ImageIcon("Imager\\xuatfile2-30.png"));
-		btnxuatfile.setFont(new Font("Arial", Font.PLAIN, 22));
-		panel_bar.add(btnxuatfile);
+//		JButton btnnhapfile = new JButton("Nhập File");
+//		btnnhapfile.setEnabled(DangNhap.action_nhapfile);
+//		btnnhapfile.setBorder(null);
+//		btnnhapfile.setBorderPainted(false);
+//		btnnhapfile.setContentAreaFilled(false);
+//		btnnhapfile.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				FileNameExtensionFilter format = new FileNameExtensionFilter("file(.*)", "txt");
+//				ChooserFile chooser = new ChooserFile(format, false);
+//				chooser.show();
+//
+//				String url = chooser.getUrl();
+//				if (url != null) {
+//					ArrayList<String> ds = new ArrayList<String>();
+//					String data = null;
+//					try {
+//						FileInputStream f = new FileInputStream(url);
+//						BufferedReader b = new BufferedReader(new InputStreamReader(f, "UTF-8"));
+//
+//						while (true) {
+//							data = b.readLine();
+//							if (data == null || data.equals("")) {
+//								break;
+//							}
+//							ds.add(data);
+//						}
+//						themkhachhang them = new themkhachhang();
+//						them.themkhachhang(ds);
+//						b.close();
+//					} catch (Exception e2) {
+//						JOptionPane.showMessageDialog(null, "lỗi đọc file: " + e2.getMessage());
+//					}
+//
+//				}
+//			}
+//		});
+//		btnnhapfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//		btnnhapfile.setIconTextGap(5);
+//		btnnhapfile.setIcon(new ImageIcon("Imager\\nhapfile-30.png"));
+//		btnnhapfile.setFont(new Font("Arial", Font.PLAIN, 22));
+//		panel_bar.add(btnnhapfile);
+//
+//		JButton btnxuatfile = new JButton("Xuất File");
+//		btnxuatfile.setEnabled(DangNhap.action_xuatfile);
+//		btnxuatfile.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				String tableName = "khachhang";
+//				String id = "makh";
+//				xuatfile xuat = new xuatfile(table_KH, tableName, id);
+//				xuat.run();
+//			}
+//		});
+//		btnxuatfile.setBorder(null);
+//		btnxuatfile.setBorderPainted(false);
+//		btnxuatfile.setContentAreaFilled(false);
+//		btnxuatfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//		btnxuatfile.setIconTextGap(5);
+//		btnxuatfile.setIcon(new ImageIcon("Imager\\xuatfile2-30.png"));
+//		btnxuatfile.setFont(new Font("Arial", Font.PLAIN, 22));
+//		panel_bar.add(btnxuatfile);
 
 		JPanel panel_KH = new JPanel();
 		tabbedPane.addTab("Khách Hàng", panel_KH);
@@ -362,19 +373,14 @@ public class cardpanel_khachhang extends JPanel {
 			ResultSet rs = st.executeQuery(sql);
 			DefaultTableModel row = (DefaultTableModel) table_KH.getModel();
 			while (rs.next()) {
-
 				String data[] = { index++ + "", rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5) };
-
 				row.addRow(data);
-
 			}
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null, e2.getMessage(), " lỗi kết nối bảng khách hàng",
 					JOptionPane.ERROR_MESSAGE);
-
 		}
-
 	}
 
 	private void showNKH() {
@@ -385,16 +391,12 @@ public class cardpanel_khachhang extends JPanel {
 			ResultSet rs = st.executeQuery(sql);
 			DefaultTableModel row = (DefaultTableModel) table_NKH.getModel();
 			while (rs.next()) {
-
 				String data[] = { index++ + "", rs.getString(1), rs.getString(2), rs.getString(3) };
-
 				row.addRow(data);
-
 			}
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null, e2.getMessage(), " lỗi kết nối bảng mã khách hàng",
 					JOptionPane.ERROR_MESSAGE);
-
 		}
 	}
 
@@ -441,19 +443,52 @@ public class cardpanel_khachhang extends JPanel {
 		int size = soluong.length;
 		Statement st = null;
 		try {
-			for (int i = 0; i < size; i++) {
-				String makh = (String) table_KH.getValueAt(soluong[i], 1);
-				String sql = "delete khachhang from khachhang where makh = N'" + makh + "'";
-				st = DangNhap.con.createStatement();
-				st.executeUpdate(sql);
+			String sql = "(";
+			st = DangNhap.con.createStatement();
+			for (int i = 0; i < size; i++)
+				sql += "N'" + (String) table_KH.getValueAt(soluong[i], 1) + "',";
+			// xoa dau , cuoi cung
+			sql = sql.substring(0, sql.length() - 1);
+			sql += ")";
+			ResultSet rs = st.executeQuery("select count(*) from hoadonban where makh in " + sql);
+			if (rs.next()) {
+				if (rs.getInt(1) == 0)
+					st.executeUpdate("delete from khachhang where makh in " + sql);
+				else
+					JOptionPane.showMessageDialog(null,
+							"các Khách hàng đang tồn tại trong hóa đơn,bạn phải xóa các đơn hàng của khách hàng cần xóa trước.");
 			}
-
 			refresh();
 		} catch (Exception e) {
 			System.out.println("cardpanel_donhang -xoaDH: " + e.getMessage());
 		}
 	}
-
+	
+	private void xoaNKH(int[] soluong) {
+		int size = soluong.length;
+		Statement st = null;
+		try {
+			String sql = "(";
+			st = DangNhap.con.createStatement();
+			for (int i = 0; i < size; i++)
+				sql += "N'" + (String) table_NKH.getValueAt(soluong[i], 1) + "',";
+			// xoa dau , cuoi cung
+			sql = sql.substring(0, sql.length() - 1);
+			sql += ")";
+			ResultSet rs = st.executeQuery("select count(*) from khachhang where MaNhomkh in " + sql);
+			if (rs.next()) {
+				if (rs.getInt(1) == 0)
+					st.executeUpdate("delete from nhomkh where MaNhomKh in " + sql);
+				else
+					JOptionPane.showMessageDialog(null,
+							"không thể xóa, trước tiên phải xóa các khách hàng có mã nhóm khách hàng muốn xóa.");
+			}
+			refresh();
+		} catch (Exception e) {
+			System.out.println("cardpanel_donhang -xoaNKH: " + e.getMessage());
+		}
+	}
+	
 	private void refresh() {
 
 		// lấy chỉ mục đang chọn

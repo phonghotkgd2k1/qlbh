@@ -2,8 +2,6 @@ package Business;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -43,10 +41,8 @@ public class Custom_list extends JList<String> {
 			BufferedReader b = new BufferedReader(new InputStreamReader(f));
 			while (true) {
 				String temp = b.readLine();
-				if (temp == null || temp =="\n") {
-					break;
-				}
-				
+				if (temp == null || temp =="\n") 
+					break;			
 				datarow.addElement(temp);
 				ds.add(temp);
 			}
@@ -71,15 +67,13 @@ public class Custom_list extends JList<String> {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "lỗi ghi serverName", JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
 
 	private boolean kiemtraServer(String txt) {
 		int size = ds.size();
 		for (int i = 0; i < size; i++) {
-			if (ds.get(i).equals(txt)) {
+			if (ds.get(i).equals(txt)) 
 				return true;
-			}
 		}
 		return false;
 	}

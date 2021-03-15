@@ -75,7 +75,7 @@ public class ThemQuyenHan extends JDialog {
 
 	public ThemQuyenHan() {
 		setTitle("Thêm quyền hạn mới");
-		
+
 		addWindowListener(window);
 		setResizable(false);
 		setModal(true);
@@ -199,15 +199,14 @@ public class ThemQuyenHan extends JDialog {
 	private void napChucNang() {
 		DefaultTableModel data = (DefaultTableModel) table.getModel();
 		Vector<Object> chucnang = new Vector<Object>();
-
+		
 		data.addRow(new Object[] { true, "bán hàng" });
 		data.addRow(new Object[] { false, "xóa" });
 		data.addRow(new Object[] { false, "thêm" });
 		data.addRow(new Object[] { true, "sửa" });
 		data.addRow(new Object[] { true, "xuất file" });
 		data.addRow(new Object[] { true, "nhập file" });
-		
-
+		data.addRow(new Object[] { false, "quản lý nhân viên" });
 	}
 
 	private String randomMaCTQH() {
@@ -223,18 +222,18 @@ public class ThemQuyenHan extends JDialog {
 
 		pr.setString(1, textField_maqh.getText().trim());
 		pr.setString(2, textField_tenqh.getText().trim());
-		pr.addBatch();		
+		pr.addBatch();
 		pr.executeBatch();
-		
+
 		sql = "insert into chitietquyenhan values(?,?,?,?)";
 
 		pr = DangNhap.con.prepareStatement(sql);
 		String mactqh = null;
-		
+
 		System.out.println(mactqh);
 		System.out.println(textField_maqh.getText().trim());
 		for (int i = 0; i < table.getRowCount(); i++) {
-			pr.setString(1, randomMaCTQH() );
+			pr.setString(1, randomMaCTQH());
 			pr.setString(2, textField_maqh.getText().trim());
 			pr.setString(3, (String) table.getValueAt(i, table.getColumn("Chức năng").getModelIndex()));
 			pr.setBoolean(4, (Boolean) table.getValueAt(i, table.getColumn("Cho phép").getModelIndex()));

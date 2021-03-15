@@ -1,6 +1,7 @@
 package Business;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,39 +10,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Color;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
 
 public class cardpanel_donhang extends JPanel {
 	static int index;
@@ -53,9 +47,7 @@ public class cardpanel_donhang extends JPanel {
 
 	public cardpanel_donhang() {
 		GUI();
-
 		showDH();
-
 	}
 
 	private void GUI() {
@@ -172,7 +164,7 @@ public class cardpanel_donhang extends JPanel {
 
 		comboBox = new JComboBox();
 		comboBox.setBorder(UIManager.getBorder("TextField.border"));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "MaHD", "Ngaytao", "MaNV", "MaKH" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "MaHD", "Ngaytao", "MaNV", "MaKH" ,"MaHang"}));
 		comboBox.setFont(new Font("Arial", Font.PLAIN, 17));
 		comboBox.setMaximumRowCount(15);
 		splitPane.setRightComponent(comboBox);
@@ -226,7 +218,6 @@ public class cardpanel_donhang extends JPanel {
 		table_DH.getColumn("Giảm giá").setCellRenderer(new DefaultTableCellRenderer() {
 			@Override
 			public void setHorizontalAlignment(int alignment) {
-
 				super.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
 			}
 		});
@@ -237,7 +228,6 @@ public class cardpanel_donhang extends JPanel {
 			public void setHorizontalAlignment(int alignment) {
 				super.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 			}
-
 		});
 
 		JTableHeader header = table_DH.getTableHeader();
@@ -272,21 +262,22 @@ public class cardpanel_donhang extends JPanel {
 
 	private void ds_timkiemDH(String txt, String dieukien) {
 
-		String sql = "select hd.MaHD,hd.NgayTao , hd.GiamGia ,sum(cthd.ThanhTien * (100 - hd.GiamGia)/100)+ hd.TienCongThem thanhtien from hoadonban hd join ChiTietHoaDon cthd on hd.MaHD = cthd.MaHD WHERE hd."
-				+ dieukien + " LIKE N'%" + txt + "%'group by hd.MaHD ,hd.MaNV ,hd.NgayTao ,hd.GiamGia ,hd.TienCongThem";
+		String sql = "select hd.MaHD,hd.NgayTao , hd.GiamGia ,sum(cthd.ThanhTien * (100 - hd.GiamGia)/100)+ hd.TienCongThem thanhtien from hoadonban hd join ChiTietHoaDon cthd on hd.MaHD = cthd.MaHD WHERE ";
+		if (dieukien.equalsIgnoreCase("ngaytao"))
+			sql += " CONVERT(VARCHAR(25),NgayTao,126) ";
+		else
+			sql += dieukien;
+		sql += " LIKE N'%" + txt + "%'group by hd.MaHD ,hd.MaNV ,hd.NgayTao ,hd.GiamGia ,hd.TienCongThem";
 		DefaultTableModel datarow = (DefaultTableModel) table_DH.getModel();
 		datarow.setRowCount(0);
 		try {
 			Statement st = DangNhap.con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-
 			for (int i = 1; rs.next(); i++) {
-
 				String temp[] = { i + "", rs.getString("mahd"), rs.getString("ngaytao"), rs.getFloat("giamgia") + "",
 						rs.getDouble("thanhtien") + "" };
 				datarow.addRow(temp);
 			}
-
 		} catch (Exception e) {
 			System.out.println("cardpanel_donhang  -ds tim kiem DH: " + e.getMessage());
 		}
@@ -306,7 +297,6 @@ public class cardpanel_donhang extends JPanel {
 	}
 
 	static void removeTab(int i) {
-
 		tabbedPane.remove(i);
 		index--;
 	}
@@ -315,7 +305,6 @@ public class cardpanel_donhang extends JPanel {
 
 		private JMenuItem item_xem;
 		private JMenuItem item_sua;
-
 		JTable table;
 
 		public Tablepopup(JTable table) {
@@ -348,7 +337,6 @@ public class cardpanel_donhang extends JPanel {
 			item_sua.setPreferredSize(new Dimension(250, 30));
 			item_sua.setFont(new Font("Arial", Font.PLAIN, 14));
 			add(item_sua);
-
 		}
 	}
 
@@ -364,9 +352,7 @@ public class cardpanel_donhang extends JPanel {
 				st = DangNhap.con.createStatement();
 				st.executeUpdate(sql_cthd);
 				st.executeUpdate(sql_hd);
-
 			}
-
 			refresh();
 		} catch (Exception e) {
 			System.out.println("cardpanel_donhang -xoaDH: " + e.getMessage());
@@ -392,7 +378,6 @@ public class cardpanel_donhang extends JPanel {
 					int i = customTabbed.tabbedPane.indexOfTabComponent(customJTabbedpane.this);
 					if (i != -1)
 						return customTabbed.tabbedPane.getTitleAt(i);
-
 					return null;
 				}
 			};
@@ -403,12 +388,10 @@ public class cardpanel_donhang extends JPanel {
 			JButton bt = new JButton();
 			// duong vien
 			bt.setBorderPainted(false);
-
 			// noi dung
 			bt.setContentAreaFilled(false);
 			bt.setPreferredSize(new Dimension(20, 20));
 			bt.addMouseListener(new MouseAdapter() {
-
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int i = customTabbed.tabbedPane.indexOfTabComponent(customJTabbedpane.this);

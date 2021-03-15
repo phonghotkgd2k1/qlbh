@@ -73,43 +73,6 @@ public class baocaohangngay extends JPanel {
 		lbdonhang.setText(sl + "");
 	}
 
-	private void soDonHangNhap() {
-		String sql = "select  count(maphieu) from phieukho  where DAY(NgayLapPhieu) = ? and MONTH(NgayLapPhieu ) = ?   and YEAR(NgayLapPhieu ) = ?  and loaiphieu =N'NHAP'";
-		int sl = 0;
-		try {
-			PreparedStatement pr = DangNhap.con.prepareStatement(sql);
-			pr.setInt(1, ngay);
-			pr.setInt(2, thang);
-			pr.setInt(3, nam);
-			ResultSet rs = pr.executeQuery();
-			if (rs.next()) {
-				sl = rs.getInt(1);
-			}
-		} catch (Exception e) {
-			System.out.println("baocaohangngay - sokhachhang: " + e.getMessage());
-		}
-		lbnhaphang.setText(sl + "");
-
-	}
-
-	private void soDonHangXuat() {
-		String sql = "select  count(maphieu) from phieukho  where DAY(NgayLapPhieu) = ? and MONTH(NgayLapPhieu ) = ?   and YEAR(NgayLapPhieu ) = ?  and loaiphieu =N'XUAT'";
-		int sl = 0;
-		try {
-			PreparedStatement pr = DangNhap.con.prepareStatement(sql);
-			pr.setInt(1, ngay);
-			pr.setInt(2, thang);
-			pr.setInt(3, nam);
-			ResultSet rs = pr.executeQuery();
-			if (rs.next()) {
-				sl = rs.getInt(1);
-			}
-		} catch (Exception e) {
-			System.out.println("baocaohangngay - sokhachhang: " + e.getMessage());
-		}
-		lbxuathang.setText(sl + "");
-	}
-
 	private void getNgayThang() {
 		calendar = calendar.getInstance();
 		ngay = calendar.get(Calendar.DATE);
@@ -120,18 +83,14 @@ public class baocaohangngay extends JPanel {
 	}
 
 	public baocaohangngay() {
-
 		GUI();
 		getNgayThang();
-
 		get_baocao();
 	}
 
 	public void get_baocao() {
 		soDonHang();
 		soKhachHang();
-		soDonHangNhap();
-		soDonHangXuat();
 	}
 
 	private void GUI() {
@@ -154,12 +113,12 @@ public class baocaohangngay extends JPanel {
 		gbl_panel_baocaohangngay.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		panel_baocaohangngay.setLayout(gbl_panel_baocaohangngay);
-		
+
 		JLabel lbtailai = new JLabel("Tải lại");
-		lbtailai.addMouseListener( new MouseAdapter() {
+		lbtailai.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( e.getButton() == MouseEvent.BUTTON1) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
 					get_baocao();
 				}
 			}

@@ -20,6 +20,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.annotation.processing.FilerException;
+import javax.imageio.IIOException;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -56,7 +59,6 @@ public class cardpanel_sanpham extends JPanel {
 	private JLabel lbrefresh;
 
 	public cardpanel_sanpham() {
-
 		GUI();
 		/*
 		 * show san pham
@@ -218,9 +220,11 @@ public class cardpanel_sanpham extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int[] soluong = table_sp.getSelectedRows();
-				int xacnhan = JOptionPane.showConfirmDialog(null, "xác nhận xóa " + soluong.length + " sản phẩm");
-				if (xacnhan == JOptionPane.YES_OPTION)
-					xoaSP(soluong);
+				if (soluong.length > 0) {
+					int xacnhan = JOptionPane.showConfirmDialog(null, "xác nhận xóa " + soluong.length + " sản phẩm");
+					if (xacnhan == JOptionPane.YES_OPTION)
+						xoaSP(soluong);
+				}
 			}
 		});
 		btnxoa_sp.setBorder(null);
@@ -271,19 +275,29 @@ public class cardpanel_sanpham extends JPanel {
 
 	}
 
+	// danh sach san pham cần xóa đã đảm bảo có dữ liệu
 	private void xoaSP(int[] soluong) {
 		int size = soluong.length;
 		Statement st = null;
-		String MASP = null;
+		String sql = "(";
 		try {
+			st = DangNhap.con.createStatement();
 			for (int i = 0; i < size; i++) {
-				MASP = (String) table_sp.getValueAt(soluong[i], 1);
-				String sql_cthd = "DELETE FROM CHITIETHOADON WHERE MAHANG = N'" + MASP + "'";
-				String sql_mh = " DELETE FROM  MATHANG WHERE MAHANG = N'" + MASP + "'";
-				st = DangNhap.con.createStatement();
-				st.executeUpdate(sql_cthd);
-				st.executeUpdate(sql_mh);
+				sql += "N'" + (String) table_sp.getValueAt(soluong[i], 1) + "',";
+			}
+			// xoa dau , cuoi cung
+			sql = sql.substring(0, sql.length() - 1);
+			sql += ")";
 
+			ResultSet rs = st.executeQuery("select count(*) from chitiethoadon where mahang in " + sql);
+			if (rs.next()) {
+				// hóa đơn không chứa các mã hàng thì cho phép xóa các mặt hàng đó
+				if (rs.getInt(1) == 0) {
+					st.executeUpdate("delete from mathang where mahang in " + sql);
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"các mặt hàng đang tồn tại trong hóa đơn,bạn phải xóa các đơn hàng chứa các mặt hàng đó trước.");
+				}
 			}
 			refresh();
 		} catch (Exception e) {
@@ -328,35 +342,30 @@ public class cardpanel_sanpham extends JPanel {
 
 				themsanpham them = new themsanpham();
 				FileInputStream f = new FileInputStream(url);
-				BufferedReader br = new BufferedReader(new InputStreamReader(f ,"UTF-8") );
+				BufferedReader br = new BufferedReader(new InputStreamReader(f, "UTF-8"));
 				while (true) {
 					String txt = br.readLine();
 					if (txt == null || txt.equals("")) {
 						break;
 					}
 					String o[] = txt.split("[;|]");
-					
-					
+
 					ob_sanpham sp = new ob_sanpham();
-					sp.setMahang( o[0].trim());
+					sp.setMahang(o[0].trim());
 					sp.setTenhang(o[1].trim());
-					sp.setGianhap( Double.parseDouble(o[2]));
+					sp.setGianhap(Double.parseDouble(o[2]));
 					sp.setGiabanle(Double.parseDouble(o[3]));
-					sp.setGiabansi(Double.parseDouble(o[4]));
-					sp.setDonvitinh( o[5].trim());
-					sp.setGhichu( o[6].trim());
-					sp.setAnh(o[7].trim());
-					sp.setNgaykhoitao(o[8].trim());
-					
+					sp.setDonvitinh(o[4].trim());
+					sp.setGhichu(o[5].trim());
+					sp.setAnh(o[6].trim());
+					sp.setNgaykhoitao(o[7].trim());
+
 					ds.add(sp);
 				}
 				them.luuSanPham(ds);
-
 				br.close();
-			}
-			catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "lỗi dữ liệu =>"+e.getMessage());
-				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "lỗi dữ liệu =>" + e.getMessage());
 			}
 		}
 	}

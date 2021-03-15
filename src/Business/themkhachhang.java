@@ -1,47 +1,34 @@
 package Business;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.JSeparator;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.Image;
 import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.JTextField;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JButton;
+import java.awt.Cursor;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileFilter;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.Cursor;
-import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 public class themkhachhang extends JDialog {
 
@@ -226,6 +213,8 @@ public class themkhachhang extends JDialog {
 			dispose();
 		} catch (SQLException e2) {
 			JOptionPane.showMessageDialog(null, e2.getMessage(), "trùng mã KH", JOptionPane.ERROR_MESSAGE);
+		} catch (NullPointerException e3) {
+			JOptionPane.showMessageDialog(null, e3.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
