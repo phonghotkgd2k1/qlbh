@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +28,7 @@ import javax.swing.UIManager;
 public class cardpanel_baocao extends JPanel {
 
 	private JLabel lblNewLabel;
+	private JPanel panel_baocaohangngay;
 	private JToolBar toolBar;
 	static JComboBox<Integer> comboBox_ngaybd;
 	static JComboBox<Integer> comboBox_thangbd;
@@ -38,6 +40,7 @@ public class cardpanel_baocao extends JPanel {
 	static JComboBox<Integer> comboBox_namkt;
 	private JButton btnxacnhan;
 	private thongkedoanhthu thongke;
+	private bieudocot cot;
 	private JPanel panel_South;
 	private bieudoduong bieudoDuong;
 	private TopNhanVienKinhDoanh topnhanvien;
@@ -216,13 +219,24 @@ public class cardpanel_baocao extends JPanel {
 		bieudoDuong = new bieudoduong();
 		panel_South.add(bieudoDuong, gbc);
 
+		panel_baocaohangngay = new baocaohangngay();
+		panel_baocaohangngay.setPreferredSize(new Dimension(40, 265));
+		GridBagConstraints gbc_panel_baocaohangngay = new GridBagConstraints();
+		gbc_panel_baocaohangngay.fill = GridBagConstraints.BOTH;
+		gbc_panel_baocaohangngay.ipady = 5;
+		gbc_panel_baocaohangngay.ipadx = 5;
+		gbc_panel_baocaohangngay.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_baocaohangngay.gridx = 1;
+		gbc_panel_baocaohangngay.gridy = 1;
+		panel_South.add(panel_baocaohangngay, gbc_panel_baocaohangngay);
+
 		// them bieu do cot
 		GridBagConstraints gbc_1 = new GridBagConstraints();
 		gbc_1.fill = GridBagConstraints.BOTH;
 		gbc_1.insets = new Insets(0, 0, 5, 5);
 		gbc_1.gridx = 0;
 		gbc_1.gridy = 1;
-
+		panel_South.add(cot, gbc_1);
 
 //		GridBagConstraints gbc_2 = new GridBagConstraints();
 //		gbc_2.fill = GridBagConstraints.BOTH;
@@ -240,7 +254,7 @@ public class cardpanel_baocao extends JPanel {
 		gbc_panel_table.insets = new Insets(5, 5, 5, 5);
 		gbc_panel_table.fill = GridBagConstraints.BOTH;
 		gbc_panel_table.gridx = 1;
-		gbc_panel_table.gridy = 1;
+		gbc_panel_table.gridy = 2;
 		panel_South.add(pnsanphambanchay, gbc_panel_table);
 
 		/*
@@ -250,7 +264,7 @@ public class cardpanel_baocao extends JPanel {
 		gbc_panel.insets = new Insets(5, 5, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 1;
+		gbc_panel.gridy = 2;
 		panel_South.add(topnhanvien, gbc_panel);
 
 		return panel_South;
@@ -278,7 +292,7 @@ public class cardpanel_baocao extends JPanel {
 
 		topnhanvien = new TopNhanVienKinhDoanh(d1, d2, m1, m2, y1, y2);
 		pnsanphambanchay = new sanphambanchay(d1, d2, m1, m2, y1, y2);
-
+		cot = new bieudocot();
 		pn.add(panel_south(), BorderLayout.SOUTH);
 
 		add(js, BorderLayout.CENTER);
@@ -319,12 +333,16 @@ public class cardpanel_baocao extends JPanel {
 	}
 
 	private void capnhat_bieudocot() {
+		panel_South.remove(cot);
+
 		GridBagConstraints gbc_1 = new GridBagConstraints();
 		gbc_1.fill = GridBagConstraints.BOTH;
 		gbc_1.insets = new Insets(0, 0, 0, 5);
 		gbc_1.gridx = 0;
 		gbc_1.gridy = 1;
 
+		cot = new bieudocot();
+		panel_South.add(cot, gbc_1);
 	}
 
 	private void capnhat_bieudoduong() {
