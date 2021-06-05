@@ -1,7 +1,1 @@
-DESKTOP-31RMB1H\SQLEXPRESS
-192.168.1.214
-localhost
-quanlybanhangDATA.mssql.somee.com
-quanlybanhang001.mssql.somee.com
-192.168.217.1
 localhost\express
